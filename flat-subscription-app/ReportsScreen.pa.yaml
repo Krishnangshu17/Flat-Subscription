@@ -1,0 +1,632 @@
+Screens:
+  ReportsScreen:
+    Properties:
+      Fill: =ClrBg
+      LoadingSpinnerColor: =ClrPrimary
+      OnVisible: =If(IsBlank(varRepTab), Set(varRepTab, "Monthly"))
+    Children:
+      - conRepRoot:
+          Control: GroupContainer
+          Variant: AutoLayout
+          Properties:
+            LayoutDirection: =LayoutDirection.Vertical
+            LayoutAlignItems: =LayoutAlignItems.Stretch
+            LayoutOverflowY: =LayoutOverflow.Scroll
+            LayoutGap: =12
+            PaddingBottom: =24
+            Fill: =ClrBg
+            DropShadow: =DropShadow.None
+            RadiusTopLeft: =0
+            RadiusTopRight: =0
+            RadiusBottomLeft: =0
+            RadiusBottomRight: =0
+            X: =0
+            Y: =0
+            Width: =Parent.Width
+            Height: =Parent.Height
+          Children:
+            - conRepTopBar:
+                Control: GroupContainer
+                Variant: AutoLayout
+                Properties:
+                  LayoutDirection: =LayoutDirection.Vertical
+                  LayoutAlignItems: =LayoutAlignItems.Stretch
+                  LayoutGap: =4
+                  Fill: =ClrPrimary
+                  DropShadow: =DropShadow.None
+                  RadiusTopLeft: =0
+                  RadiusTopRight: =0
+                  RadiusBottomLeft: =0
+                  RadiusBottomRight: =0
+                  PaddingLeft: =16
+                  PaddingRight: =16
+                  PaddingTop: =8
+                  PaddingBottom: =8
+                  Height: =104
+                  FillPortions: =0
+                  LayoutMinWidth: =0
+                  LayoutMinHeight: =0
+                Children:
+                  - conRepTitleRow:
+                      Control: GroupContainer
+                      Variant: AutoLayout
+                      Properties:
+                        LayoutDirection: =LayoutDirection.Horizontal
+                        LayoutAlignItems: =LayoutAlignItems.Center
+                        LayoutGap: =8
+                        DropShadow: =DropShadow.None
+                        Height: =40
+                        FillPortions: =0
+                        LayoutMinWidth: =0
+                        LayoutMinHeight: =0
+                      Children:
+                        - lblRepAppTitle:
+                            Control: ModernText
+                            Properties:
+                              Text: ="Flat Subscription Tracker"
+                              AccessibleLabel: ="Flat Subscription Tracker"
+                              Size: =20
+                              FontWeight: =FontWeight.Bold
+                              Color: =ClrOnPrimary
+                              Wrap: =false
+                              Height: =40
+                              FillPortions: =1
+                              LayoutMinWidth: =0
+                        - lblRepRole:
+                            Control: ModernText
+                            Properties:
+                              Text: =If(IsAdmin, "Admin", "View only")
+                              AccessibleLabel: =If(IsAdmin, "Signed in as admin", "Signed in with view-only access")
+                              Size: =13
+                              FontWeight: =FontWeight.Semibold
+                              Color: =ClrOnPrimary
+                              Align: =Align.Right
+                              Wrap: =false
+                              Height: =40
+                              Width: =96
+                              FillPortions: =0
+                              LayoutMinWidth: =0
+                  - conRepNavRow:
+                      Control: GroupContainer
+                      Variant: AutoLayout
+                      Properties:
+                        LayoutDirection: =LayoutDirection.Horizontal
+                        LayoutAlignItems: =LayoutAlignItems.Center
+                        LayoutOverflowX: =LayoutOverflow.Scroll
+                        LayoutGap: =6
+                        DropShadow: =DropShadow.None
+                        Height: =44
+                        FillPortions: =0
+                        LayoutMinWidth: =0
+                        LayoutMinHeight: =0
+                      Children:
+                        - btnRepNavHome:
+                            Control: ModernButton
+                            Properties:
+                              Text: ="Dashboard"
+                              AccessibleLabel: ="Go to Dashboard"
+                              Appearance: =ButtonAppearance.Subtle
+                              BasePaletteColor: =ClrPrimary
+                              Color: =ClrOnPrimary
+                              FontWeight: =FontWeight.Semibold
+                              OnSelect: =Navigate(Screen1, ScreenTransition.None)
+                              Width: =112
+                              Height: =40
+                              FillPortions: =0
+                              LayoutMinWidth: =0
+                        - btnRepNavOwners:
+                            Control: ModernButton
+                            Properties:
+                              Text: ="Owners & Flats"
+                              AccessibleLabel: ="Go to Owners & Flats"
+                              Appearance: =ButtonAppearance.Subtle
+                              BasePaletteColor: =ClrPrimary
+                              Color: =ClrOnPrimary
+                              FontWeight: =FontWeight.Semibold
+                              OnSelect: =Navigate(OwnersScreen, ScreenTransition.None)
+                              Width: =136
+                              Height: =40
+                              FillPortions: =0
+                              LayoutMinWidth: =0
+                        - btnRepNavPayments:
+                            Control: ModernButton
+                            Properties:
+                              Text: ="Payments"
+                              AccessibleLabel: ="Go to Payments"
+                              Appearance: =ButtonAppearance.Subtle
+                              BasePaletteColor: =ClrPrimary
+                              Color: =ClrOnPrimary
+                              FontWeight: =FontWeight.Semibold
+                              OnSelect: =Navigate(PaymentsScreen, ScreenTransition.None)
+                              Width: =112
+                              Height: =40
+                              FillPortions: =0
+                              LayoutMinWidth: =0
+                        - btnRepNavReports:
+                            Control: ModernButton
+                            Properties:
+                              Text: ="Reports"
+                              AccessibleLabel: ="Go to Reports"
+                              Appearance: =ButtonAppearance.Primary
+                              BasePaletteColor: =ClrAccent
+                              Color: =ClrOnPrimary
+                              FontWeight: =FontWeight.Bold
+                              OnSelect: =Navigate(ReportsScreen, ScreenTransition.None)
+                              Width: =112
+                              Height: =40
+                              FillPortions: =0
+                              LayoutMinWidth: =0
+                        - btnRepNavAudit:
+                            Control: ModernButton
+                            Properties:
+                              Text: ="Audit Log"
+                              AccessibleLabel: ="Go to Audit Log"
+                              Appearance: =ButtonAppearance.Subtle
+                              BasePaletteColor: =ClrPrimary
+                              Color: =ClrOnPrimary
+                              FontWeight: =FontWeight.Semibold
+                              OnSelect: =Navigate(AuditScreen, ScreenTransition.None)
+                              Width: =112
+                              Height: =40
+                              FillPortions: =0
+                              LayoutMinWidth: =0
+                              Visible: =IsAdmin
+            - conRepHeader:
+                Control: GroupContainer
+                Variant: AutoLayout
+                Properties:
+                  LayoutDirection: =LayoutDirection.Horizontal
+                  LayoutAlignItems: =LayoutAlignItems.Center
+                  LayoutGap: =8
+                  PaddingLeft: =16
+                  PaddingRight: =16
+                  DropShadow: =DropShadow.None
+                  Height: =52
+                  FillPortions: =0
+                  LayoutMinWidth: =0
+                  LayoutMinHeight: =0
+                Children:
+                  - lblRepTitle:
+                      Control: ModernText
+                      Properties:
+                        Text: ="Reports"
+                        AccessibleLabel: ="Reports"
+                        Size: =24
+                        FontWeight: =FontWeight.Bold
+                        Color: =ClrText
+                        Wrap: =false
+                        Height: =44
+                        FillPortions: =1
+                        LayoutMinWidth: =0
+                  - btnRepDownload:
+                      Control: ModernButton
+                      Properties:
+                        Text: ="Download PDF"
+                        AccessibleLabel: ="Download report as PDF"
+                        Appearance: =ButtonAppearance.Primary
+                        BasePaletteColor: =ClrAccent
+                        OnSelect: =Print()
+                        Width: =140
+                        Height: =44
+                        FillPortions: =0
+                        LayoutMinWidth: =0
+            - lblRepPdfHint:
+                Control: ModernText
+                Properties:
+                  Text: ="Download PDF opens the print dialog. Choose 'Save as PDF' as the printer to save the report."
+                  AccessibleLabel: ="How to save the report as PDF"
+                  Size: =12
+                  Color: =ClrMuted
+                  PaddingLeft: =16
+                  PaddingRight: =16
+                  Wrap: =true
+                  Height: =40
+                  FillPortions: =0
+                  LayoutMinWidth: =0
+            - conRepTabs:
+                Control: GroupContainer
+                Variant: AutoLayout
+                Properties:
+                  LayoutDirection: =LayoutDirection.Horizontal
+                  LayoutAlignItems: =LayoutAlignItems.Center
+                  LayoutGap: =8
+                  PaddingLeft: =16
+                  PaddingRight: =16
+                  DropShadow: =DropShadow.None
+                  Height: =44
+                  FillPortions: =0
+                  LayoutMinWidth: =0
+                  LayoutMinHeight: =0
+                Children:
+                  - btnRepTabMonthly:
+                      Control: ModernButton
+                      Properties:
+                        Text: ="Monthly"
+                        AccessibleLabel: ="Monthly report"
+                        Appearance: =If(varRepTab = "Monthly", ButtonAppearance.Primary, ButtonAppearance.Outline)
+                        BasePaletteColor: =ClrPrimary
+                        Color: =If(varRepTab = "Monthly", ClrOnPrimary, ClrPrimary)
+                        OnSelect: =Set(varRepTab, "Monthly")
+                        Width: =100
+                        Height: =40
+                        FillPortions: =0
+                        LayoutMinWidth: =0
+                  - btnRepTabOwner:
+                      Control: ModernButton
+                      Properties:
+                        Text: ="Owner-wise"
+                        AccessibleLabel: ="Owner-wise report"
+                        Appearance: =If(varRepTab = "Owner", ButtonAppearance.Primary, ButtonAppearance.Outline)
+                        BasePaletteColor: =ClrPrimary
+                        Color: =If(varRepTab = "Owner", ClrOnPrimary, ClrPrimary)
+                        OnSelect: =Set(varRepTab, "Owner")
+                        Width: =104
+                        Height: =40
+                        FillPortions: =0
+                        LayoutMinWidth: =0
+                  - btnRepTabYearly:
+                      Control: ModernButton
+                      Properties:
+                        Text: ="Yearly"
+                        AccessibleLabel: ="Yearly report"
+                        Appearance: =If(varRepTab = "Yearly", ButtonAppearance.Primary, ButtonAppearance.Outline)
+                        BasePaletteColor: =ClrPrimary
+                        Color: =If(varRepTab = "Yearly", ClrOnPrimary, ClrPrimary)
+                        OnSelect: =Set(varRepTab, "Yearly")
+                        Width: =96
+                        Height: =40
+                        FillPortions: =0
+                        LayoutMinWidth: =0
+            - conRepPeriod:
+                Control: GroupContainer
+                Variant: AutoLayout
+                Properties:
+                  LayoutDirection: =LayoutDirection.Horizontal
+                  LayoutAlignItems: =LayoutAlignItems.Center
+                  LayoutGap: =8
+                  PaddingLeft: =16
+                  PaddingRight: =16
+                  DropShadow: =DropShadow.None
+                  Height: =48
+                  FillPortions: =0
+                  LayoutMinWidth: =0
+                  LayoutMinHeight: =0
+                Children:
+                  - btnRepPrev:
+                      Control: ModernButton
+                      Properties:
+                        Text: ="‹"
+                        AccessibleLabel: =If(varRepTab = "Monthly", "Previous month", "Previous year")
+                        Appearance: =ButtonAppearance.Outline
+                        Color: =ClrPrimary
+                        Size: =20
+                        OnSelect: |-
+                          =If(
+                            varRepTab = "Monthly" && varMonth > 1,
+                            Set(varMonth, varMonth - 1),
+                            If(varRepTab = "Monthly", Set(varMonth, 12));
+                            Set(varYear, varYear - 1);
+                            ClearCollect(colPayments, Filter(Payments, PayYear = varYear))
+                          )
+                        Width: =44
+                        Height: =44
+                        FillPortions: =0
+                        LayoutMinWidth: =0
+                  - lblRepPeriod:
+                      Control: ModernText
+                      Properties:
+                        Text: =If(varRepTab = "Monthly", MonthLabel(varMonth) & " " & varYear, "Year " & varYear)
+                        AccessibleLabel: ="Report period"
+                        Size: =18
+                        FontWeight: =FontWeight.Bold
+                        Color: =ClrPrimary
+                        Align: =Align.Center
+                        Wrap: =false
+                        Height: =44
+                        Width: =200
+                        FillPortions: =0
+                        LayoutMinWidth: =0
+                  - btnRepNext:
+                      Control: ModernButton
+                      Properties:
+                        Text: ="›"
+                        AccessibleLabel: =If(varRepTab = "Monthly", "Next month", "Next year")
+                        Appearance: =ButtonAppearance.Outline
+                        Color: =ClrPrimary
+                        Size: =20
+                        OnSelect: |-
+                          =If(
+                            varRepTab = "Monthly" && varMonth < 12,
+                            Set(varMonth, varMonth + 1),
+                            If(varRepTab = "Monthly", Set(varMonth, 1));
+                            Set(varYear, varYear + 1);
+                            ClearCollect(colPayments, Filter(Payments, PayYear = varYear))
+                          )
+                        Width: =44
+                        Height: =44
+                        FillPortions: =0
+                        LayoutMinWidth: =0
+            - conRepOwnerField:
+                Control: GroupContainer
+                Variant: AutoLayout
+                Properties:
+                  LayoutDirection: =LayoutDirection.Vertical
+                  LayoutAlignItems: =LayoutAlignItems.Stretch
+                  LayoutGap: =4
+                  PaddingLeft: =16
+                  PaddingRight: =16
+                  DropShadow: =DropShadow.None
+                  Visible: =varRepTab = "Owner"
+                  Height: =66
+                  FillPortions: =0
+                  LayoutMinWidth: =0
+                  LayoutMinHeight: =0
+                Children:
+                  - lblRepOwner:
+                      Control: ModernText
+                      Properties:
+                        Text: ="Owner"
+                        AccessibleLabel: ="Owner"
+                        Size: =13
+                        FontWeight: =FontWeight.Semibold
+                        Color: =ClrText
+                        Height: =22
+                        LayoutMinWidth: =0
+                  - ddRepOwner:
+                      Control: ModernDropdown
+                      Properties:
+                        Items: =SortByColumns(colOwners, "Title", SortOrder.Ascending)
+                        ItemDisplayText: =ThisItem.Title
+                        Default: =First(SortByColumns(colOwners, "Title", SortOrder.Ascending))
+                        AccessibleLabel: ="Owner for report"
+                        Appearance: =Appearance.Outline
+                        Height: =40
+                        LayoutMaxWidth: =420
+                        LayoutMinWidth: =0
+            - conRepBody:
+                Control: GroupContainer
+                Variant: AutoLayout
+                Properties:
+                  LayoutDirection: =LayoutDirection.Vertical
+                  LayoutAlignItems: =LayoutAlignItems.Stretch
+                  LayoutGap: =8
+                  PaddingLeft: =16
+                  PaddingRight: =16
+                  PaddingTop: =16
+                  PaddingBottom: =16
+                  Fill: =ClrCard
+                  DropShadow: =DropShadow.Light
+                  RadiusTopLeft: =10
+                  RadiusTopRight: =10
+                  RadiusBottomLeft: =10
+                  RadiusBottomRight: =10
+                  Height: |-
+                    =32 + 36 + 22 + 56 + 3 * 8 + 26 +
+                    Max(1, If(varRepTab = "Monthly", CountRows(Filter(colFlats, IsActive && (IsBlank(StartDate) || StartDate < MonthEnd(varYear, varMonth)))), 12)) * 60 + 8
+                  FillPortions: =0
+                  LayoutMinWidth: =0
+                  LayoutMinHeight: =0
+                Children:
+                  - lblRepHeading:
+                      Control: ModernText
+                      Properties:
+                        Text: |-
+                          =Switch(
+                            varRepTab,
+                            "Monthly", "Monthly collection report · " & MonthLabel(varMonth) & " " & varYear,
+                            "Owner", "Owner report · " & Coalesce(ddRepOwner.Selected.Title, "(no owner)") & " · " & varYear,
+                            "Yearly collection report · " & varYear
+                          )
+                        AccessibleLabel: ="Report title"
+                        Size: =18
+                        FontWeight: =FontWeight.Bold
+                        Color: =ClrPrimary
+                        Wrap: =true
+                        Height: =36
+                        LayoutMinWidth: =0
+                  - lblRepGenerated:
+                      Control: ModernText
+                      Properties:
+                        Text: ="Generated " & Text(Now(), "dd mmm yyyy hh:mm") & " by " & User().FullName
+                        AccessibleLabel: ="Report generated time"
+                        Size: =12
+                        Color: =ClrMuted
+                        Wrap: =false
+                        Height: =22
+                        LayoutMinWidth: =0
+                  - lblRepEmpty:
+                      Control: ModernText
+                      Properties:
+                        Text: ="No rows for this report."
+                        AccessibleLabel: ="No rows for this report"
+                        Size: =14
+                        Color: =ClrMuted
+                        Visible: =galRepRows.AllItemsCount = 0
+                        Height: =26
+                        LayoutMinWidth: =0
+                  - galRepRows:
+                      Control: Gallery
+                      Variant: Vertical
+                      Properties:
+                        Items: |-
+                          =Switch(
+                            varRepTab,
+                            "Monthly",
+                              ForAll(
+                                SortByColumns(
+                                  Filter(colFlats, IsActive && (IsBlank(StartDate) || StartDate < MonthEnd(varYear, varMonth))),
+                                  "Title",
+                                  SortOrder.Ascending
+                                ),
+                                With(
+                                  {p: FlatPaid(ID, varYear, varMonth), amt: MonthlyAmount},
+                                  {
+                                    C1: "Flat " & Title,
+                                    C2: OwnerName(OwnerID),
+                                    Exp: amt,
+                                    Paid: p,
+                                    Due: Max(0, amt - p),
+                                    Status: If(p >= amt, "Paid", p > 0, "Partial", "Due")
+                                  }
+                                )
+                              ),
+                            "Owner",
+                              ForAll(
+                                Sequence(12),
+                                With(
+                                  {
+                                    mn: Value,
+                                    e: OwnerExpected(Coalesce(ddRepOwner.Selected.ID, 0), varYear, Value),
+                                    c: OwnerPaid(Coalesce(ddRepOwner.Selected.ID, 0), varYear, Value)
+                                  },
+                                  {
+                                    C1: MonthLabel(mn),
+                                    C2: CountRows(Filter(colFlats, OwnerID = Coalesce(ddRepOwner.Selected.ID, 0) && IsActive && (IsBlank(StartDate) || StartDate < MonthEnd(varYear, mn)))) & " flat(s)",
+                                    Exp: e,
+                                    Paid: c,
+                                    Due: Max(0, e - c),
+                                    Status: MonthStatus(e, c, varYear, mn)
+                                  }
+                                )
+                              ),
+                            ForAll(
+                              Sequence(12),
+                              With(
+                                {mn: Value, e: MonthExpected(varYear, Value), c: MonthCollected(varYear, Value)},
+                                {
+                                  C1: MonthLabel(mn),
+                                  C2: If(e > 0, RoundDown(c / e * 100, 0) & "% collected", "-"),
+                                  Exp: e,
+                                  Paid: c,
+                                  Due: Max(0, e - c),
+                                  Status: MonthStatus(e, c, varYear, mn)
+                                }
+                              )
+                            )
+                          )
+                        TemplateSize: =58
+                        TemplatePadding: =2
+                        Selectable: =false
+                        ShowScrollbar: =false
+                        DelayItemLoading: =false
+                        BorderThickness: =0
+                        AccessibleLabel: ="Report rows"
+                        TabIndex: =0
+                        Height: =Max(1, If(varRepTab = "Monthly", CountRows(Filter(colFlats, IsActive && (IsBlank(StartDate) || StartDate < MonthEnd(varYear, varMonth)))), 12)) * 60 + 8
+                        FillPortions: =0
+                        LayoutMinWidth: =0
+                        LayoutMinHeight: =0
+                      Children:
+                        - conRepRow:
+                            Control: GroupContainer
+                            Variant: AutoLayout
+                            Properties:
+                              LayoutDirection: =LayoutDirection.Vertical
+                              LayoutAlignItems: =LayoutAlignItems.Stretch
+                              PaddingLeft: =10
+                              PaddingRight: =10
+                              PaddingTop: =4
+                              PaddingBottom: =4
+                              Fill: =ClrBg
+                              DropShadow: =DropShadow.None
+                              RadiusTopLeft: =6
+                              RadiusTopRight: =6
+                              RadiusBottomLeft: =6
+                              RadiusBottomRight: =6
+                              X: =0
+                              Y: =0
+                              Width: =Parent.TemplateWidth
+                              Height: =Parent.TemplateHeight
+                            Children:
+                              - conRepRowHead:
+                                  Control: GroupContainer
+                                  Variant: AutoLayout
+                                  Properties:
+                                    LayoutDirection: =LayoutDirection.Horizontal
+                                    LayoutAlignItems: =LayoutAlignItems.Center
+                                    LayoutGap: =6
+                                    DropShadow: =DropShadow.None
+                                    Height: =26
+                                    FillPortions: =0
+                                    LayoutMinWidth: =0
+                                    LayoutMinHeight: =0
+                                  Children:
+                                    - lblRepRowName:
+                                        Control: ModernText
+                                        Properties:
+                                          Text: =ThisItem.C1 & "  ·  " & ThisItem.C2
+                                          AccessibleLabel: =ThisItem.C1 & ", " & ThisItem.C2
+                                          Size: =14
+                                          FontWeight: =FontWeight.Semibold
+                                          Color: =ClrText
+                                          Wrap: =false
+                                          PaddingTop: =0
+                                          PaddingBottom: =0
+                                          Height: =26
+                                          FillPortions: =1
+                                          LayoutMinWidth: =0
+                                    - lblRepRowStatus:
+                                        Control: ModernText
+                                        Properties:
+                                          Text: =ThisItem.Status
+                                          AccessibleLabel: ="Status " & ThisItem.Status
+                                          Size: =13
+                                          FontWeight: =FontWeight.Bold
+                                          Color: =StatusColor(ThisItem.Status)
+                                          Align: =Align.Right
+                                          Wrap: =false
+                                          PaddingTop: =0
+                                          PaddingBottom: =0
+                                          Height: =26
+                                          Width: =84
+                                          FillPortions: =0
+                                          LayoutMinWidth: =0
+                              - lblRepRowAmounts:
+                                  Control: ModernText
+                                  Properties:
+                                    Text: ="Expected " & Money(ThisItem.Exp) & "   Paid " & Money(ThisItem.Paid) & "   Due " & Money(ThisItem.Due)
+                                    AccessibleLabel: ="Expected, paid and due amounts"
+                                    Size: =13
+                                    Color: =ClrMuted
+                                    Wrap: =false
+                                    PaddingTop: =0
+                                    PaddingBottom: =0
+                                    Height: =22
+                                    LayoutMinWidth: =0
+                  - conRepTotals:
+                      Control: GroupContainer
+                      Variant: AutoLayout
+                      Properties:
+                        LayoutDirection: =LayoutDirection.Vertical
+                        LayoutAlignItems: =LayoutAlignItems.Stretch
+                        PaddingLeft: =10
+                        PaddingRight: =10
+                        PaddingTop: =6
+                        PaddingBottom: =6
+                        Fill: =RGBA(224, 242, 241, 1)
+                        DropShadow: =DropShadow.None
+                        RadiusTopLeft: =6
+                        RadiusTopRight: =6
+                        RadiusBottomLeft: =6
+                        RadiusBottomRight: =6
+                        Height: =56
+                        FillPortions: =0
+                        LayoutMinWidth: =0
+                        LayoutMinHeight: =0
+                      Children:
+                        - lblRepTotals:
+                            Control: ModernText
+                            Properties:
+                              Text: |-
+                                ="Total expected " & Money(Sum(galRepRows.AllItems, Exp)) &
+                                "   ·   Total collected " & Money(Sum(galRepRows.AllItems, Paid)) &
+                                "   ·   Total due " & Money(Sum(galRepRows.AllItems, Due))
+                              AccessibleLabel: ="Report totals"
+                              Size: =14
+                              FontWeight: =FontWeight.Bold
+                              Color: =ClrPrimaryDark
+                              Wrap: =true
+                              PaddingTop: =0
+                              PaddingBottom: =0
+                              Height: =44
+                              LayoutMinWidth: =0

@@ -1,0 +1,1282 @@
+Screens:
+  PaymentsScreen:
+    Properties:
+      Fill: =ClrBg
+      LoadingSpinnerColor: =ClrPrimary
+      OnVisible: |-
+        =Set(varPayFormMode, "");
+        Set(varPayDeleteId, 0);
+        Set(varPayLastAction, "");
+        Set(varPayStatusFilter, "All")
+    Children:
+      - conPayRoot:
+          Control: GroupContainer
+          Variant: AutoLayout
+          Properties:
+            LayoutDirection: =LayoutDirection.Vertical
+            LayoutAlignItems: =LayoutAlignItems.Stretch
+            LayoutOverflowY: =LayoutOverflow.Scroll
+            LayoutGap: =12
+            PaddingBottom: =24
+            Fill: =ClrBg
+            DropShadow: =DropShadow.None
+            RadiusTopLeft: =0
+            RadiusTopRight: =0
+            RadiusBottomLeft: =0
+            RadiusBottomRight: =0
+            X: =0
+            Y: =0
+            Width: =Parent.Width
+            Height: =Parent.Height
+          Children:
+            - conPayTopBar:
+                Control: GroupContainer
+                Variant: AutoLayout
+                Properties:
+                  LayoutDirection: =LayoutDirection.Vertical
+                  LayoutAlignItems: =LayoutAlignItems.Stretch
+                  LayoutGap: =4
+                  Fill: =ClrPrimary
+                  DropShadow: =DropShadow.None
+                  RadiusTopLeft: =0
+                  RadiusTopRight: =0
+                  RadiusBottomLeft: =0
+                  RadiusBottomRight: =0
+                  PaddingLeft: =16
+                  PaddingRight: =16
+                  PaddingTop: =8
+                  PaddingBottom: =8
+                  Height: =104
+                  FillPortions: =0
+                  LayoutMinWidth: =0
+                  LayoutMinHeight: =0
+                Children:
+                  - conPayTitleRow:
+                      Control: GroupContainer
+                      Variant: AutoLayout
+                      Properties:
+                        LayoutDirection: =LayoutDirection.Horizontal
+                        LayoutAlignItems: =LayoutAlignItems.Center
+                        LayoutGap: =8
+                        DropShadow: =DropShadow.None
+                        Height: =40
+                        FillPortions: =0
+                        LayoutMinWidth: =0
+                        LayoutMinHeight: =0
+                      Children:
+                        - lblPayAppTitle:
+                            Control: ModernText
+                            Properties:
+                              Text: ="Flat Subscription Tracker"
+                              AccessibleLabel: ="Flat Subscription Tracker"
+                              Size: =20
+                              FontWeight: =FontWeight.Bold
+                              Color: =ClrOnPrimary
+                              Wrap: =false
+                              Height: =40
+                              FillPortions: =1
+                              LayoutMinWidth: =0
+                        - lblPayRole:
+                            Control: ModernText
+                            Properties:
+                              Text: =If(IsAdmin, "Admin", "View only")
+                              AccessibleLabel: =If(IsAdmin, "Signed in as admin", "Signed in with view-only access")
+                              Size: =13
+                              FontWeight: =FontWeight.Semibold
+                              Color: =ClrOnPrimary
+                              Align: =Align.Right
+                              Wrap: =false
+                              Height: =40
+                              Width: =96
+                              FillPortions: =0
+                              LayoutMinWidth: =0
+                  - conPayNavRow:
+                      Control: GroupContainer
+                      Variant: AutoLayout
+                      Properties:
+                        LayoutDirection: =LayoutDirection.Horizontal
+                        LayoutAlignItems: =LayoutAlignItems.Center
+                        LayoutOverflowX: =LayoutOverflow.Scroll
+                        LayoutGap: =6
+                        DropShadow: =DropShadow.None
+                        Height: =44
+                        FillPortions: =0
+                        LayoutMinWidth: =0
+                        LayoutMinHeight: =0
+                      Children:
+                        - btnPayNavHome:
+                            Control: ModernButton
+                            Properties:
+                              Text: ="Dashboard"
+                              AccessibleLabel: ="Go to Dashboard"
+                              Appearance: =ButtonAppearance.Subtle
+                              BasePaletteColor: =ClrPrimary
+                              Color: =ClrOnPrimary
+                              FontWeight: =FontWeight.Semibold
+                              OnSelect: =Navigate(Screen1, ScreenTransition.None)
+                              Width: =112
+                              Height: =40
+                              FillPortions: =0
+                              LayoutMinWidth: =0
+                        - btnPayNavOwners:
+                            Control: ModernButton
+                            Properties:
+                              Text: ="Owners & Flats"
+                              AccessibleLabel: ="Go to Owners & Flats"
+                              Appearance: =ButtonAppearance.Subtle
+                              BasePaletteColor: =ClrPrimary
+                              Color: =ClrOnPrimary
+                              FontWeight: =FontWeight.Semibold
+                              OnSelect: =Navigate(OwnersScreen, ScreenTransition.None)
+                              Width: =136
+                              Height: =40
+                              FillPortions: =0
+                              LayoutMinWidth: =0
+                        - btnPayNavPayments:
+                            Control: ModernButton
+                            Properties:
+                              Text: ="Payments"
+                              AccessibleLabel: ="Go to Payments"
+                              Appearance: =ButtonAppearance.Primary
+                              BasePaletteColor: =ClrAccent
+                              Color: =ClrOnPrimary
+                              FontWeight: =FontWeight.Bold
+                              OnSelect: =Navigate(PaymentsScreen, ScreenTransition.None)
+                              Width: =112
+                              Height: =40
+                              FillPortions: =0
+                              LayoutMinWidth: =0
+                        - btnPayNavReports:
+                            Control: ModernButton
+                            Properties:
+                              Text: ="Reports"
+                              AccessibleLabel: ="Go to Reports"
+                              Appearance: =ButtonAppearance.Subtle
+                              BasePaletteColor: =ClrPrimary
+                              Color: =ClrOnPrimary
+                              FontWeight: =FontWeight.Semibold
+                              OnSelect: =Navigate(ReportsScreen, ScreenTransition.None)
+                              Width: =112
+                              Height: =40
+                              FillPortions: =0
+                              LayoutMinWidth: =0
+                        - btnPayNavAudit:
+                            Control: ModernButton
+                            Properties:
+                              Text: ="Audit Log"
+                              AccessibleLabel: ="Go to Audit Log"
+                              Appearance: =ButtonAppearance.Subtle
+                              BasePaletteColor: =ClrPrimary
+                              Color: =ClrOnPrimary
+                              FontWeight: =FontWeight.Semibold
+                              OnSelect: =Navigate(AuditScreen, ScreenTransition.None)
+                              Width: =112
+                              Height: =40
+                              FillPortions: =0
+                              LayoutMinWidth: =0
+                              Visible: =IsAdmin
+            - conPayPeriod:
+                Control: GroupContainer
+                Variant: AutoLayout
+                Properties:
+                  LayoutDirection: =LayoutDirection.Horizontal
+                  LayoutAlignItems: =LayoutAlignItems.Center
+                  LayoutGap: =8
+                  PaddingLeft: =16
+                  PaddingRight: =16
+                  DropShadow: =DropShadow.None
+                  Height: =52
+                  FillPortions: =0
+                  LayoutMinWidth: =0
+                  LayoutMinHeight: =0
+                Children:
+                  - lblPayTitle:
+                      Control: ModernText
+                      Properties:
+                        Text: ="Payments"
+                        AccessibleLabel: ="Monthly payments"
+                        Size: =24
+                        FontWeight: =FontWeight.Bold
+                        Color: =ClrText
+                        Wrap: =false
+                        Visible: =App.Width >= 640
+                        Height: =44
+                        Width: =140
+                        FillPortions: =0
+                        LayoutMinWidth: =0
+                  - btnPayPrevMonth:
+                      Control: ModernButton
+                      Properties:
+                        Text: ="‹"
+                        AccessibleLabel: ="Previous month"
+                        Appearance: =ButtonAppearance.Outline
+                        Color: =ClrPrimary
+                        Size: =20
+                        OnSelect: |-
+                          =If(
+                            varMonth = 1,
+                            Set(varMonth, 12);
+                            Set(varYear, varYear - 1);
+                            ClearCollect(colPayments, Filter(Payments, PayYear = varYear)),
+                            Set(varMonth, varMonth - 1)
+                          );
+                          Set(varPayFormMode, "");
+                          Set(varPayDeleteId, 0)
+                        Width: =44
+                        Height: =44
+                        FillPortions: =0
+                        LayoutMinWidth: =0
+                  - lblPayPeriod:
+                      Control: ModernText
+                      Properties:
+                        Text: =MonthLabel(varMonth) & " " & varYear
+                        AccessibleLabel: ="Selected month " & MonthLabel(varMonth) & " " & varYear
+                        Size: =20
+                        FontWeight: =FontWeight.Bold
+                        Color: =ClrPrimary
+                        Align: =Align.Center
+                        Wrap: =false
+                        Height: =44
+                        FillPortions: =1
+                        LayoutMinWidth: =0
+                  - btnPayNextMonth:
+                      Control: ModernButton
+                      Properties:
+                        Text: ="›"
+                        AccessibleLabel: ="Next month"
+                        Appearance: =ButtonAppearance.Outline
+                        Color: =ClrPrimary
+                        Size: =20
+                        OnSelect: |-
+                          =If(
+                            varMonth = 12,
+                            Set(varMonth, 1);
+                            Set(varYear, varYear + 1);
+                            ClearCollect(colPayments, Filter(Payments, PayYear = varYear)),
+                            Set(varMonth, varMonth + 1)
+                          );
+                          Set(varPayFormMode, "");
+                          Set(varPayDeleteId, 0)
+                        Width: =44
+                        Height: =44
+                        FillPortions: =0
+                        LayoutMinWidth: =0
+            - conPayKpiRow:
+                Control: GroupContainer
+                Variant: AutoLayout
+                Properties:
+                  LayoutDirection: =LayoutDirection.Horizontal
+                  LayoutWrap: =true
+                  LayoutGap: =12
+                  PaddingLeft: =16
+                  PaddingRight: =16
+                  DropShadow: =DropShadow.None
+                  Height: =If(App.Width < 560, 176, 82)
+                  FillPortions: =0
+                  LayoutMinWidth: =0
+                  LayoutMinHeight: =0
+                Children:
+                  - conPayKpiExpected:
+                      Control: GroupContainer
+                      Variant: AutoLayout
+                      Properties:
+                        LayoutDirection: =LayoutDirection.Vertical
+                        LayoutAlignItems: =LayoutAlignItems.Stretch
+                        PaddingLeft: =12
+                        PaddingRight: =12
+                        PaddingTop: =10
+                        PaddingBottom: =10
+                        Fill: =ClrCard
+                        DropShadow: =DropShadow.Light
+                        RadiusTopLeft: =10
+                        RadiusTopRight: =10
+                        RadiusBottomLeft: =10
+                        RadiusBottomRight: =10
+                        Height: =82
+                        FillPortions: =1
+                        LayoutMinWidth: =150
+                        LayoutMinHeight: =0
+                      Children:
+                        - lblPayKpiExpectedCap:
+                            Control: ModernText
+                            Properties:
+                              Text: ="Expected"
+                              AccessibleLabel: ="Expected this month"
+                              Size: =13
+                              Color: =ClrMuted
+                              Height: =24
+                              LayoutMinWidth: =0
+                        - lblPayKpiExpectedVal:
+                            Control: ModernText
+                            Properties:
+                              Text: =Money(MonthExpected(varYear, varMonth))
+                              AccessibleLabel: ="Expected " & Money(MonthExpected(varYear, varMonth))
+                              Size: =22
+                              FontWeight: =FontWeight.Bold
+                              Color: =ClrText
+                              Wrap: =false
+                              Height: =36
+                              LayoutMinWidth: =0
+                  - conPayKpiCollected:
+                      Control: GroupContainer
+                      Variant: AutoLayout
+                      Properties:
+                        LayoutDirection: =LayoutDirection.Vertical
+                        LayoutAlignItems: =LayoutAlignItems.Stretch
+                        PaddingLeft: =12
+                        PaddingRight: =12
+                        PaddingTop: =10
+                        PaddingBottom: =10
+                        Fill: =ClrCard
+                        DropShadow: =DropShadow.Light
+                        RadiusTopLeft: =10
+                        RadiusTopRight: =10
+                        RadiusBottomLeft: =10
+                        RadiusBottomRight: =10
+                        Height: =82
+                        FillPortions: =1
+                        LayoutMinWidth: =150
+                        LayoutMinHeight: =0
+                      Children:
+                        - lblPayKpiCollectedCap:
+                            Control: ModernText
+                            Properties:
+                              Text: ="Collected"
+                              AccessibleLabel: ="Collected this month"
+                              Size: =13
+                              Color: =ClrMuted
+                              Height: =24
+                              LayoutMinWidth: =0
+                        - lblPayKpiCollectedVal:
+                            Control: ModernText
+                            Properties:
+                              Text: =Money(MonthCollected(varYear, varMonth))
+                              AccessibleLabel: ="Collected " & Money(MonthCollected(varYear, varMonth))
+                              Size: =22
+                              FontWeight: =FontWeight.Bold
+                              Color: =ClrPaid
+                              Wrap: =false
+                              Height: =36
+                              LayoutMinWidth: =0
+                  - conPayKpiDue:
+                      Control: GroupContainer
+                      Variant: AutoLayout
+                      Properties:
+                        LayoutDirection: =LayoutDirection.Vertical
+                        LayoutAlignItems: =LayoutAlignItems.Stretch
+                        PaddingLeft: =12
+                        PaddingRight: =12
+                        PaddingTop: =10
+                        PaddingBottom: =10
+                        Fill: =ClrCard
+                        DropShadow: =DropShadow.Light
+                        RadiusTopLeft: =10
+                        RadiusTopRight: =10
+                        RadiusBottomLeft: =10
+                        RadiusBottomRight: =10
+                        Height: =82
+                        FillPortions: =1
+                        LayoutMinWidth: =150
+                        LayoutMinHeight: =0
+                      Children:
+                        - lblPayKpiDueCap:
+                            Control: ModernText
+                            Properties:
+                              Text: ="Due"
+                              AccessibleLabel: ="Due this month"
+                              Size: =13
+                              Color: =ClrMuted
+                              Height: =24
+                              LayoutMinWidth: =0
+                        - lblPayKpiDueVal:
+                            Control: ModernText
+                            Properties:
+                              Text: =Money(Max(0, MonthExpected(varYear, varMonth) - MonthCollected(varYear, varMonth)))
+                              AccessibleLabel: ="Due " & Money(Max(0, MonthExpected(varYear, varMonth) - MonthCollected(varYear, varMonth)))
+                              Size: =22
+                              FontWeight: =FontWeight.Bold
+                              Color: =If(MonthExpected(varYear, varMonth) > MonthCollected(varYear, varMonth), ClrDue, ClrPaid)
+                              Wrap: =false
+                              Height: =36
+                              LayoutMinWidth: =0
+            - conPayReceipt:
+                Control: GroupContainer
+                Variant: AutoLayout
+                Properties:
+                  LayoutDirection: =LayoutDirection.Horizontal
+                  LayoutAlignItems: =LayoutAlignItems.Center
+                  LayoutGap: =8
+                  PaddingLeft: =16
+                  PaddingRight: =8
+                  Fill: =RGBA(232, 245, 233, 1)
+                  DropShadow: =DropShadow.None
+                  RadiusTopLeft: =8
+                  RadiusTopRight: =8
+                  RadiusBottomLeft: =8
+                  RadiusBottomRight: =8
+                  Visible: =varPayLastAction <> ""
+                  Height: =96
+                  FillPortions: =0
+                  LayoutMinWidth: =0
+                  LayoutMinHeight: =0
+                Children:
+                  - lblPayReceipt:
+                      Control: ModernText
+                      Properties:
+                        Text: |-
+                          ="Payment " & varPayLastAction & " (ID " & varPaySnap.ID & ")" & Char(10) &
+                          "Flat: " & varPaySnap.FlatNo & "  ·  Owner: " & varPaySnap.Owner & "  ·  Period: " & varPaySnap.Period & Char(10) &
+                          "Amount: " & Money(varPaySnap.Amount) & "  ·  Paid on: " & If(IsBlank(varPaySnap.PaidOn), "-", Text(varPaySnap.PaidOn, "dd mmm yyyy")) &
+                          "  ·  Mode: " & varPaySnap.Mode & "  ·  Remarks: " & Coalesce(varPaySnap.Remarks, "-")
+                        AccessibleLabel: ="Payment change confirmation"
+                        Size: =13
+                        Color: =RGBA(27, 94, 32, 1)
+                        Wrap: =true
+                        Height: =88
+                        FillPortions: =1
+                        LayoutMinWidth: =0
+                  - btnPayReceiptClose:
+                      Control: ModernButton
+                      Properties:
+                        Text: ="Dismiss"
+                        AccessibleLabel: ="Dismiss payment confirmation"
+                        Appearance: =ButtonAppearance.Subtle
+                        Color: =RGBA(27, 94, 32, 1)
+                        OnSelect: =Set(varPayLastAction, "")
+                        Width: =84
+                        Height: =40
+                        FillPortions: =0
+                        LayoutMinWidth: =0
+            - conPayForm:
+                Control: GroupContainer
+                Variant: AutoLayout
+                Properties:
+                  LayoutDirection: =LayoutDirection.Vertical
+                  LayoutAlignItems: =LayoutAlignItems.Stretch
+                  LayoutGap: =8
+                  PaddingLeft: =16
+                  PaddingRight: =16
+                  PaddingTop: =14
+                  PaddingBottom: =14
+                  Fill: =ClrCard
+                  DropShadow: =DropShadow.Regular
+                  RadiusTopLeft: =10
+                  RadiusTopRight: =10
+                  RadiusBottomLeft: =10
+                  RadiusBottomRight: =10
+                  Visible: =IsAdmin && varPayFormMode <> ""
+                  Height: =504
+                  FillPortions: =0
+                  LayoutMinWidth: =0
+                  LayoutMinHeight: =0
+                Children:
+                  - lblPayFormTitle:
+                      Control: ModernText
+                      Properties:
+                        Text: |-
+                          =If(varPayFormMode = "Edit", "Edit payment", "Record payment") & " · Flat " &
+                          LookUp(colFlats, ID = varPayFlatId, Title) & " (" & OwnerName(LookUp(colFlats, ID = varPayFlatId, OwnerID)) & ") · " &
+                          MonthLabel(varMonth) & " " & varYear
+                        AccessibleLabel: ="Payment form"
+                        Size: =16
+                        FontWeight: =FontWeight.Bold
+                        Color: =ClrPrimary
+                        Wrap: =true
+                        Height: =52
+                        LayoutMinWidth: =0
+                  - lblPayFormInfo:
+                      Control: ModernText
+                      Properties:
+                        Text: |-
+                          ="Monthly amount " & Money(LookUp(colFlats, ID = varPayFlatId, MonthlyAmount)) &
+                          "  ·  Already paid " & Money(FlatPaid(varPayFlatId, varYear, varMonth))
+                        AccessibleLabel: ="Amount summary for this flat"
+                        Size: =13
+                        Color: =ClrMuted
+                        Wrap: =false
+                        Height: =22
+                        LayoutMinWidth: =0
+                  - conPayFieldAmount:
+                      Control: GroupContainer
+                      Variant: AutoLayout
+                      Properties:
+                        LayoutDirection: =LayoutDirection.Vertical
+                        LayoutAlignItems: =LayoutAlignItems.Stretch
+                        LayoutGap: =4
+                        DropShadow: =DropShadow.None
+                        Height: =66
+                        FillPortions: =0
+                        LayoutMinWidth: =0
+                        LayoutMinHeight: =0
+                      Children:
+                        - lblPayAmount:
+                            Control: ModernText
+                            Properties:
+                              Text: ="Amount paid (₹) *"
+                              AccessibleLabel: ="Amount paid, required"
+                              Size: =13
+                              FontWeight: =FontWeight.Semibold
+                              Color: =ClrText
+                              Height: =22
+                              LayoutMinWidth: =0
+                        - numPayAmount:
+                            Control: ModernNumberInput
+                            Properties:
+                              Default: |-
+                                =If(
+                                  varPayFormMode = "Edit",
+                                  LookUp(colPayments, ID = varPayEditId).AmountPaid,
+                                  Max(0, LookUp(colFlats, ID = varPayFlatId, MonthlyAmount) - FlatPaid(varPayFlatId, varYear, varMonth))
+                                )
+                              Min: =0
+                              Step: =100
+                              Precision: =DecimalPrecision.'2'
+                              AccessibleLabel: ="Amount paid"
+                              Appearance: =Appearance.Outline
+                              ValidationState: =If(Coalesce(Self.Value, 0) <= 0, ValidationState.Error, ValidationState.None)
+                              Height: =40
+                              LayoutMinWidth: =0
+                  - conPayFieldDate:
+                      Control: GroupContainer
+                      Variant: AutoLayout
+                      Properties:
+                        LayoutDirection: =LayoutDirection.Vertical
+                        LayoutAlignItems: =LayoutAlignItems.Stretch
+                        LayoutGap: =4
+                        DropShadow: =DropShadow.None
+                        Height: =66
+                        FillPortions: =0
+                        LayoutMinWidth: =0
+                        LayoutMinHeight: =0
+                      Children:
+                        - lblPayDate:
+                            Control: ModernText
+                            Properties:
+                              Text: ="Paid on *"
+                              AccessibleLabel: ="Paid on date, required"
+                              Size: =13
+                              FontWeight: =FontWeight.Semibold
+                              Color: =ClrText
+                              Height: =22
+                              LayoutMinWidth: =0
+                        - dpPayDate:
+                            Control: ModernDatePicker
+                            Properties:
+                              DefaultDate: =If(varPayFormMode = "Edit", LookUp(colPayments, ID = varPayEditId).PaidOn, Today())
+                              Format: =DatePickerFormat.Short
+                              AccessibleLabel: ="Paid on date"
+                              Appearance: =Appearance.Outline
+                              Height: =40
+                              LayoutMinWidth: =0
+                  - conPayFieldMode:
+                      Control: GroupContainer
+                      Variant: AutoLayout
+                      Properties:
+                        LayoutDirection: =LayoutDirection.Vertical
+                        LayoutAlignItems: =LayoutAlignItems.Stretch
+                        LayoutGap: =4
+                        DropShadow: =DropShadow.None
+                        Height: =66
+                        FillPortions: =0
+                        LayoutMinWidth: =0
+                        LayoutMinHeight: =0
+                      Children:
+                        - lblPayMode:
+                            Control: ModernText
+                            Properties:
+                              Text: ="Payment mode *"
+                              AccessibleLabel: ="Payment mode, required"
+                              Size: =13
+                              FontWeight: =FontWeight.Semibold
+                              Color: =ClrText
+                              Height: =22
+                              LayoutMinWidth: =0
+                        - ddPayMode:
+                            Control: ModernDropdown
+                            Properties:
+                              Items: =["Cash", "UPI", "Bank", "Cheque"]
+                              ItemDisplayText: =ThisItem.Value
+                              Default: |-
+                                ={Value: If(varPayFormMode = "Edit", Coalesce(LookUp(colPayments, ID = varPayEditId).Mode.Value, "Cash"), "Cash")}
+                              AccessibleLabel: ="Payment mode"
+                              Appearance: =Appearance.Outline
+                              Required: =true
+                              Height: =40
+                              LayoutMinWidth: =0
+                  - conPayFieldRemarks:
+                      Control: GroupContainer
+                      Variant: AutoLayout
+                      Properties:
+                        LayoutDirection: =LayoutDirection.Vertical
+                        LayoutAlignItems: =LayoutAlignItems.Stretch
+                        LayoutGap: =4
+                        DropShadow: =DropShadow.None
+                        Height: =66
+                        FillPortions: =0
+                        LayoutMinWidth: =0
+                        LayoutMinHeight: =0
+                      Children:
+                        - lblPayRemarks:
+                            Control: ModernText
+                            Properties:
+                              Text: ="Remarks"
+                              AccessibleLabel: ="Remarks"
+                              Size: =13
+                              FontWeight: =FontWeight.Semibold
+                              Color: =ClrText
+                              Height: =22
+                              LayoutMinWidth: =0
+                        - txtPayRemarks:
+                            Control: ModernTextInput
+                            Properties:
+                              Default: =If(varPayFormMode = "Edit", LookUp(colPayments, ID = varPayEditId).Remarks, "")
+                              Placeholder: ="Reference no., cheque no., notes"
+                              AccessibleLabel: ="Remarks"
+                              Appearance: =Appearance.Outline
+                              Height: =40
+                              LayoutMinWidth: =0
+                  - lblPayValidation:
+                      Control: ModernText
+                      Properties:
+                        Text: |-
+                          =If(
+                            Coalesce(numPayAmount.Value, 0) <= 0, "Amount must be more than 0.",
+                            IsBlank(dpPayDate.SelectedDate), "Select the payment date.",
+                            IsBlank(ddPayMode.Selected), "Select a payment mode.",
+                            ""
+                          )
+                        AccessibleLabel: ="Payment validation message"
+                        Size: =12
+                        Color: =ClrDue
+                        Height: =22
+                        LayoutMinWidth: =0
+                  - conPayFormButtons:
+                      Control: GroupContainer
+                      Variant: AutoLayout
+                      Properties:
+                        LayoutDirection: =LayoutDirection.Horizontal
+                        LayoutAlignItems: =LayoutAlignItems.Center
+                        LayoutGap: =8
+                        DropShadow: =DropShadow.None
+                        Height: =44
+                        FillPortions: =0
+                        LayoutMinWidth: =0
+                        LayoutMinHeight: =0
+                      Children:
+                        - btnPaySave:
+                            Control: ModernButton
+                            Properties:
+                              Text: =If(varPayFormMode = "Edit", "Save changes", "Save payment")
+                              AccessibleLabel: ="Save payment"
+                              Appearance: =ButtonAppearance.Primary
+                              BasePaletteColor: =ClrPrimary
+                              DisplayMode: |-
+                                =If(
+                                  Coalesce(numPayAmount.Value, 0) <= 0 || IsBlank(dpPayDate.SelectedDate) || IsBlank(ddPayMode.Selected),
+                                  DisplayMode.Disabled,
+                                  DisplayMode.Edit
+                                )
+                              OnSelect: |-
+                                =With(
+                                  {
+                                    mode: varPayFormMode,
+                                    flat: LookUp(colFlats, ID = varPayFlatId),
+                                    before: LookUp(colPayments, ID = varPayEditId),
+                                    changes: {
+                                      AmountPaid: numPayAmount.Value,
+                                      PaidOn: dpPayDate.SelectedDate,
+                                      Mode: {Value: ddPayMode.Selected.Value},
+                                      Remarks: Trim(txtPayRemarks.Text)
+                                    }
+                                  },
+                                  IfError(
+                                    Set(
+                                      varPaySaved,
+                                      If(
+                                        mode = "Edit",
+                                        Patch(Payments, LookUp(Payments, ID = varPayEditId), changes),
+                                        Patch(
+                                          Payments,
+                                          Defaults(Payments),
+                                          changes,
+                                          {
+                                            Title: flat.Title & "-" & varYear & "-" & Text(varMonth, "00"),
+                                            FlatID: flat.ID,
+                                            OwnerID: flat.OwnerID,
+                                            PayYear: varYear,
+                                            PayMonth: varMonth
+                                          }
+                                        )
+                                      )
+                                    );
+                                    Patch(
+                                      AuditLog,
+                                      Defaults(AuditLog),
+                                      {
+                                        Title: If(mode = "Edit", "Update", "Create"),
+                                        Entity: "Payment",
+                                        RecordID: varPaySaved.ID,
+                                        OldValue: If(
+                                          mode = "Edit",
+                                          JSON({Flat: flat.Title, Owner: OwnerName(before.OwnerID), Year: before.PayYear, Month: before.PayMonth, Amount: before.AmountPaid, PaidOn: Text(before.PaidOn, "yyyy-mm-dd"), Mode: before.Mode.Value, Remarks: before.Remarks}),
+                                          ""
+                                        ),
+                                        NewValue: JSON({Flat: flat.Title, Owner: OwnerName(varPaySaved.OwnerID), Year: varPaySaved.PayYear, Month: varPaySaved.PayMonth, Amount: varPaySaved.AmountPaid, PaidOn: Text(varPaySaved.PaidOn, "yyyy-mm-dd"), Mode: varPaySaved.Mode.Value, Remarks: varPaySaved.Remarks}),
+                                        ChangedBy: CurrentUserPerson,
+                                        ChangedOn: Now()
+                                      }
+                                    );
+                                    Set(
+                                      varPaySnap,
+                                      {
+                                        ID: varPaySaved.ID,
+                                        FlatNo: flat.Title,
+                                        Owner: OwnerName(varPaySaved.OwnerID),
+                                        Period: MonthLabel(varPaySaved.PayMonth) & " " & varPaySaved.PayYear,
+                                        Amount: varPaySaved.AmountPaid,
+                                        PaidOn: varPaySaved.PaidOn,
+                                        Mode: varPaySaved.Mode.Value,
+                                        Remarks: varPaySaved.Remarks
+                                      }
+                                    );
+                                    Set(varPayLastAction, If(mode = "Edit", "updated", "recorded"));
+                                    ClearCollect(colPayments, Filter(Payments, PayYear = varYear));
+                                    Set(varPayFormMode, ""),
+                                    Notify("Could not save payment. " & FirstError.Message, NotificationType.Error)
+                                  )
+                                )
+                              Width: =148
+                              Height: =40
+                              FillPortions: =0
+                              LayoutMinWidth: =0
+                        - btnPayCancel:
+                            Control: ModernButton
+                            Properties:
+                              Text: ="Cancel"
+                              AccessibleLabel: ="Cancel payment edit"
+                              Appearance: =ButtonAppearance.Outline
+                              Color: =ClrText
+                              OnSelect: =Set(varPayFormMode, "")
+                              Width: =96
+                              Height: =40
+                              FillPortions: =0
+                              LayoutMinWidth: =0
+            - conPayDelete:
+                Control: GroupContainer
+                Variant: AutoLayout
+                Properties:
+                  LayoutDirection: =LayoutDirection.Vertical
+                  LayoutAlignItems: =LayoutAlignItems.Stretch
+                  LayoutGap: =8
+                  PaddingLeft: =16
+                  PaddingRight: =16
+                  PaddingTop: =12
+                  PaddingBottom: =12
+                  Fill: =RGBA(253, 236, 234, 1)
+                  DropShadow: =DropShadow.None
+                  RadiusTopLeft: =10
+                  RadiusTopRight: =10
+                  RadiusBottomLeft: =10
+                  RadiusBottomRight: =10
+                  Visible: =IsAdmin && varPayDeleteId > 0
+                  Height: =120
+                  FillPortions: =0
+                  LayoutMinWidth: =0
+                  LayoutMinHeight: =0
+                Children:
+                  - lblPayDeleteMsg:
+                      Control: ModernText
+                      Properties:
+                        Text: |-
+                          =With(
+                            {p: LookUp(colPayments, ID = varPayDeleteId)},
+                            "Delete payment of " & Money(p.AmountPaid) & " for flat " & LookUp(colFlats, ID = p.FlatID, Title) &
+                            " (" & MonthLabel(p.PayMonth) & " " & p.PayYear & ")? This cannot be undone."
+                          )
+                        AccessibleLabel: ="Delete payment confirmation"
+                        Size: =14
+                        Color: =RGBA(140, 20, 20, 1)
+                        Wrap: =true
+                        Height: =44
+                        LayoutMinWidth: =0
+                  - conPayDeleteButtons:
+                      Control: GroupContainer
+                      Variant: AutoLayout
+                      Properties:
+                        LayoutDirection: =LayoutDirection.Horizontal
+                        LayoutAlignItems: =LayoutAlignItems.Center
+                        LayoutGap: =8
+                        DropShadow: =DropShadow.None
+                        Height: =44
+                        FillPortions: =0
+                        LayoutMinWidth: =0
+                        LayoutMinHeight: =0
+                      Children:
+                        - btnPayDeleteConfirm:
+                            Control: ModernButton
+                            Properties:
+                              Text: ="Delete payment"
+                              AccessibleLabel: ="Confirm delete payment"
+                              Appearance: =ButtonAppearance.Primary
+                              BasePaletteColor: =ClrDue
+                              OnSelect: |-
+                                =With(
+                                  {delId: varPayDeleteId, before: LookUp(colPayments, ID = varPayDeleteId)},
+                                  IfError(
+                                    Remove(Payments, LookUp(Payments, ID = delId));
+                                    Patch(
+                                      AuditLog,
+                                      Defaults(AuditLog),
+                                      {
+                                        Title: "Delete",
+                                        Entity: "Payment",
+                                        RecordID: before.ID,
+                                        OldValue: JSON({Flat: LookUp(colFlats, ID = before.FlatID, Title), Owner: OwnerName(before.OwnerID), Year: before.PayYear, Month: before.PayMonth, Amount: before.AmountPaid, PaidOn: Text(before.PaidOn, "yyyy-mm-dd"), Mode: before.Mode.Value, Remarks: before.Remarks}),
+                                        NewValue: "",
+                                        ChangedBy: CurrentUserPerson,
+                                        ChangedOn: Now()
+                                      }
+                                    );
+                                    Set(
+                                      varPaySnap,
+                                      {
+                                        ID: before.ID,
+                                        FlatNo: LookUp(colFlats, ID = before.FlatID, Title),
+                                        Owner: OwnerName(before.OwnerID),
+                                        Period: MonthLabel(before.PayMonth) & " " & before.PayYear,
+                                        Amount: before.AmountPaid,
+                                        PaidOn: before.PaidOn,
+                                        Mode: before.Mode.Value,
+                                        Remarks: before.Remarks
+                                      }
+                                    );
+                                    Set(varPayLastAction, "deleted");
+                                    ClearCollect(colPayments, Filter(Payments, PayYear = varYear));
+                                    Set(varPayDeleteId, 0),
+                                    Notify("Could not delete payment. " & FirstError.Message, NotificationType.Error)
+                                  )
+                                )
+                              Width: =140
+                              Height: =40
+                              FillPortions: =0
+                              LayoutMinWidth: =0
+                        - btnPayDeleteCancel:
+                            Control: ModernButton
+                            Properties:
+                              Text: ="Cancel"
+                              AccessibleLabel: ="Cancel delete payment"
+                              Appearance: =ButtonAppearance.Outline
+                              Color: =ClrText
+                              OnSelect: =Set(varPayDeleteId, 0)
+                              Width: =96
+                              Height: =40
+                              FillPortions: =0
+                              LayoutMinWidth: =0
+            - lblPayFlatsTitle:
+                Control: ModernText
+                Properties:
+                  Text: ="Flat-wise dues · " & MonthLabel(varMonth) & " " & varYear
+                  AccessibleLabel: ="Flat-wise dues"
+                  Size: =18
+                  FontWeight: =FontWeight.Semibold
+                  Color: =ClrText
+                  PaddingLeft: =16
+                  Wrap: =false
+                  Height: =32
+                  FillPortions: =0
+                  LayoutMinWidth: =0
+            - conPayFilters:
+                Control: GroupContainer
+                Variant: AutoLayout
+                Properties:
+                  LayoutDirection: =LayoutDirection.Horizontal
+                  LayoutAlignItems: =LayoutAlignItems.End
+                  LayoutWrap: =true
+                  LayoutGap: =8
+                  PaddingLeft: =16
+                  PaddingRight: =16
+                  DropShadow: =DropShadow.None
+                  Height: =If(App.Width < 640, 124, 66)
+                  FillPortions: =0
+                  LayoutMinWidth: =0
+                  LayoutMinHeight: =0
+                Children:
+                  - conPaySearchField:
+                      Control: GroupContainer
+                      Variant: AutoLayout
+                      Properties:
+                        LayoutDirection: =LayoutDirection.Vertical
+                        LayoutAlignItems: =LayoutAlignItems.Stretch
+                        LayoutGap: =4
+                        DropShadow: =DropShadow.None
+                        Height: =66
+                        FillPortions: =1
+                        LayoutMinWidth: =240
+                        LayoutMinHeight: =0
+                      Children:
+                        - lblPaySearch:
+                            Control: ModernText
+                            Properties:
+                              Text: ="Search flat or owner"
+                              AccessibleLabel: ="Search flat or owner"
+                              Size: =13
+                              FontWeight: =FontWeight.Semibold
+                              Color: =ClrText
+                              Height: =22
+                              LayoutMinWidth: =0
+                        - txtPaySearch:
+                            Control: ModernTextInput
+                            Properties:
+                              Placeholder: ="Type to filter"
+                              AccessibleLabel: ="Search flat or owner"
+                              Appearance: =Appearance.Outline
+                              Type: =TextInputType.Search
+                              Height: =40
+                              LayoutMinWidth: =0
+                  - btnPayFilterAll:
+                      Control: ModernButton
+                      Properties:
+                        Text: ="All"
+                        AccessibleLabel: ="Show all flats"
+                        Appearance: =If(varPayStatusFilter = "All", ButtonAppearance.Primary, ButtonAppearance.Outline)
+                        BasePaletteColor: =ClrPrimary
+                        Color: =If(varPayStatusFilter = "All", ClrOnPrimary, ClrPrimary)
+                        OnSelect: =Set(varPayStatusFilter, "All")
+                        Width: =72
+                        Height: =40
+                        FillPortions: =0
+                        LayoutMinWidth: =0
+                  - btnPayFilterDue:
+                      Control: ModernButton
+                      Properties:
+                        Text: ="Due"
+                        AccessibleLabel: ="Show flats with dues"
+                        Appearance: =If(varPayStatusFilter = "Due", ButtonAppearance.Primary, ButtonAppearance.Outline)
+                        BasePaletteColor: =ClrDue
+                        Color: =If(varPayStatusFilter = "Due", ClrOnPrimary, ClrDue)
+                        OnSelect: =Set(varPayStatusFilter, "Due")
+                        Width: =72
+                        Height: =40
+                        FillPortions: =0
+                        LayoutMinWidth: =0
+                  - btnPayFilterPaid:
+                      Control: ModernButton
+                      Properties:
+                        Text: ="Paid"
+                        AccessibleLabel: ="Show fully paid flats"
+                        Appearance: =If(varPayStatusFilter = "Paid", ButtonAppearance.Primary, ButtonAppearance.Outline)
+                        BasePaletteColor: =ClrPaid
+                        Color: =If(varPayStatusFilter = "Paid", ClrOnPrimary, ClrPaid)
+                        OnSelect: =Set(varPayStatusFilter, "Paid")
+                        Width: =72
+                        Height: =40
+                        FillPortions: =0
+                        LayoutMinWidth: =0
+            - lblPayFlatsEmpty:
+                Control: ModernText
+                Properties:
+                  Text: ="No flats match. Active flats billed in this month appear here."
+                  AccessibleLabel: ="No flats match"
+                  Size: =14
+                  Color: =ClrMuted
+                  PaddingLeft: =16
+                  Visible: =galPayFlats.AllItemsCount = 0
+                  Height: =32
+                  FillPortions: =0
+                  LayoutMinWidth: =0
+            - conPayFlatsWrap:
+                Control: GroupContainer
+                Variant: AutoLayout
+                Properties:
+                  LayoutDirection: =LayoutDirection.Vertical
+                  LayoutAlignItems: =LayoutAlignItems.Stretch
+                  PaddingLeft: =10
+                  PaddingRight: =10
+                  DropShadow: =DropShadow.None
+                  Height: =380
+                  FillPortions: =0
+                  LayoutMinWidth: =0
+                  LayoutMinHeight: =0
+                Children:
+                  - galPayFlats:
+                      Control: Gallery
+                      Variant: Vertical
+                      Properties:
+                        Items: |-
+                          =With(
+                            {me: MonthEnd(varYear, varMonth), q: Trim(txtPaySearch.Text)},
+                            SortByColumns(
+                              Filter(
+                                AddColumns(
+                                  Filter(colFlats, IsActive && (IsBlank(StartDate) || StartDate < me)),
+                                  Owner, OwnerName(OwnerID),
+                                  Paid, FlatPaid(ID, varYear, varMonth)
+                                ),
+                                (IsBlank(q) || q in Title || q in Owner) &&
+                                (
+                                  varPayStatusFilter = "All" ||
+                                  (varPayStatusFilter = "Due" && Paid < MonthlyAmount) ||
+                                  (varPayStatusFilter = "Paid" && Paid >= MonthlyAmount)
+                                )
+                              ),
+                              "Title",
+                              SortOrder.Ascending
+                            )
+                          )
+                        TemplateSize: =112
+                        TemplatePadding: =6
+                        Selectable: =false
+                        BorderThickness: =0
+                        AccessibleLabel: ="Flat-wise dues for the month"
+                        TabIndex: =0
+                        FillPortions: =1
+                        LayoutMinWidth: =0
+                        LayoutMinHeight: =0
+                      Children:
+                        - conPayFlatRow:
+                            Control: GroupContainer
+                            Variant: AutoLayout
+                            Properties:
+                              LayoutDirection: =LayoutDirection.Vertical
+                              LayoutAlignItems: =LayoutAlignItems.Stretch
+                              LayoutGap: =2
+                              PaddingLeft: =14
+                              PaddingRight: =14
+                              PaddingTop: =8
+                              PaddingBottom: =8
+                              Fill: =ClrCard
+                              DropShadow: =DropShadow.Light
+                              RadiusTopLeft: =10
+                              RadiusTopRight: =10
+                              RadiusBottomLeft: =10
+                              RadiusBottomRight: =10
+                              X: =0
+                              Y: =0
+                              Width: =Parent.TemplateWidth
+                              Height: =Parent.TemplateHeight
+                            Children:
+                              - conPayFlatRowHead:
+                                  Control: GroupContainer
+                                  Variant: AutoLayout
+                                  Properties:
+                                    LayoutDirection: =LayoutDirection.Horizontal
+                                    LayoutAlignItems: =LayoutAlignItems.Center
+                                    LayoutGap: =6
+                                    DropShadow: =DropShadow.None
+                                    Height: =28
+                                    FillPortions: =0
+                                    LayoutMinWidth: =0
+                                    LayoutMinHeight: =0
+                                  Children:
+                                    - lblPayFlatRowName:
+                                        Control: ModernText
+                                        Properties:
+                                          Text: ="Flat " & ThisItem.Title & "  ·  " & ThisItem.Owner
+                                          AccessibleLabel: ="Flat " & ThisItem.Title & ", owner " & ThisItem.Owner
+                                          Size: =15
+                                          FontWeight: =FontWeight.Bold
+                                          Color: =ClrText
+                                          Wrap: =false
+                                          Height: =28
+                                          FillPortions: =1
+                                          LayoutMinWidth: =0
+                                    - bdgPayFlatRowStatus:
+                                        Control: Badge
+                                        Properties:
+                                          Content: =If(ThisItem.Paid >= ThisItem.MonthlyAmount, "Paid", ThisItem.Paid > 0, "Partial", "Due")
+                                          AccessibleLabel: ="Payment status"
+                                          Appearance: ='BadgeCanvas.Appearance'.Tint
+                                          Shape: ='BadgeCanvas.Shape'.Rounded
+                                          ThemeColor: |-
+                                            =If(
+                                              ThisItem.Paid >= ThisItem.MonthlyAmount, 'BadgeCanvas.ThemeColor'.Success,
+                                              ThisItem.Paid > 0, 'BadgeCanvas.ThemeColor'.Warning,
+                                              'BadgeCanvas.ThemeColor'.Danger
+                                            )
+                                          Width: =72
+                                          Height: =24
+                                          FillPortions: =0
+                                          LayoutMinWidth: =0
+                              - lblPayFlatRowAmounts:
+                                  Control: ModernText
+                                  Properties:
+                                    Text: |-
+                                      ="Expected " & Money(ThisItem.MonthlyAmount) & "  ·  Paid " & Money(ThisItem.Paid) &
+                                      "  ·  Due " & Money(Max(0, ThisItem.MonthlyAmount - ThisItem.Paid))
+                                    AccessibleLabel: ="Expected, paid and due amounts"
+                                    Size: =13
+                                    Color: =ClrMuted
+                                    Wrap: =false
+                                    Height: =24
+                                    LayoutMinWidth: =0
+                              - btnPayFlatRowRecord:
+                                  Control: ModernButton
+                                  Properties:
+                                    Text: ="Record payment"
+                                    AccessibleLabel: ="Record payment for flat " & ThisItem.Title
+                                    Appearance: =If(ThisItem.Paid < ThisItem.MonthlyAmount, ButtonAppearance.Primary, ButtonAppearance.Outline)
+                                    BasePaletteColor: =ClrPrimary
+                                    Color: =If(ThisItem.Paid < ThisItem.MonthlyAmount, ClrOnPrimary, ClrPrimary)
+                                    Visible: =IsAdmin
+                                    OnSelect: |-
+                                      =Set(varPayFlatId, ThisItem.ID);
+                                      Set(varPayEditId, 0);
+                                      Set(varPayFormMode, "Add");
+                                      Set(varPayDeleteId, 0);
+                                      Set(varPayLastAction, "");
+                                      Reset(numPayAmount);
+                                      Reset(dpPayDate);
+                                      Reset(ddPayMode);
+                                      Reset(txtPayRemarks)
+                                    Width: =150
+                                    Height: =36
+                                    AlignInContainer: =AlignInContainer.Start
+                                    LayoutMinWidth: =0
+            - lblPayRecordsTitle:
+                Control: ModernText
+                Properties:
+                  Text: ="Payments recorded · " & MonthLabel(varMonth) & " " & varYear
+                  AccessibleLabel: ="Payments recorded this month"
+                  Size: =18
+                  FontWeight: =FontWeight.Semibold
+                  Color: =ClrText
+                  PaddingLeft: =16
+                  Wrap: =false
+                  Height: =32
+                  FillPortions: =0
+                  LayoutMinWidth: =0
+            - lblPayRecordsEmpty:
+                Control: ModernText
+                Properties:
+                  Text: ="No payments recorded for this month yet."
+                  AccessibleLabel: ="No payments recorded"
+                  Size: =14
+                  Color: =ClrMuted
+                  PaddingLeft: =16
+                  Visible: =CountRows(Filter(colPayments, PayYear = varYear && PayMonth = varMonth)) = 0
+                  Height: =32
+                  FillPortions: =0
+                  LayoutMinWidth: =0
+            - conPayRecordsWrap:
+                Control: GroupContainer
+                Variant: AutoLayout
+                Properties:
+                  LayoutDirection: =LayoutDirection.Vertical
+                  LayoutAlignItems: =LayoutAlignItems.Stretch
+                  PaddingLeft: =10
+                  PaddingRight: =10
+                  DropShadow: =DropShadow.None
+                  Height: =348
+                  FillPortions: =0
+                  LayoutMinWidth: =0
+                  LayoutMinHeight: =0
+                Children:
+                  - galPayRecords:
+                      Control: Gallery
+                      Variant: Vertical
+                      Properties:
+                        Items: =SortByColumns(Filter(colPayments, PayYear = varYear && PayMonth = varMonth), "PaidOn", SortOrder.Descending)
+                        TemplateSize: =110
+                        TemplatePadding: =6
+                        Selectable: =false
+                        BorderThickness: =0
+                        AccessibleLabel: ="Payments recorded this month"
+                        TabIndex: =0
+                        FillPortions: =1
+                        LayoutMinWidth: =0
+                        LayoutMinHeight: =0
+                      Children:
+                        - conPayRecRow:
+                            Control: GroupContainer
+                            Variant: AutoLayout
+                            Properties:
+                              LayoutDirection: =LayoutDirection.Vertical
+                              LayoutAlignItems: =LayoutAlignItems.Stretch
+                              LayoutGap: =2
+                              PaddingLeft: =14
+                              PaddingRight: =14
+                              PaddingTop: =8
+                              PaddingBottom: =8
+                              Fill: =ClrCard
+                              DropShadow: =DropShadow.Light
+                              RadiusTopLeft: =10
+                              RadiusTopRight: =10
+                              RadiusBottomLeft: =10
+                              RadiusBottomRight: =10
+                              X: =0
+                              Y: =0
+                              Width: =Parent.TemplateWidth
+                              Height: =Parent.TemplateHeight
+                            Children:
+                              - lblPayRecMain:
+                                  Control: ModernText
+                                  Properties:
+                                    Text: ="Flat " & LookUp(colFlats, ID = ThisItem.FlatID, Title) & "  ·  " & Money(ThisItem.AmountPaid) & "  ·  " & ThisItem.Mode.Value
+                                    AccessibleLabel: ="Payment for flat " & LookUp(colFlats, ID = ThisItem.FlatID, Title)
+                                    Size: =15
+                                    FontWeight: =FontWeight.Bold
+                                    Color: =ClrText
+                                    Wrap: =false
+                                    Height: =26
+                                    LayoutMinWidth: =0
+                              - lblPayRecSub:
+                                  Control: ModernText
+                                  Properties:
+                                    Text: |-
+                                      =OwnerName(ThisItem.OwnerID) & "  ·  Paid on " & If(IsBlank(ThisItem.PaidOn), "-", Text(ThisItem.PaidOn, "dd mmm yyyy")) &
+                                      If(IsBlank(ThisItem.Remarks), "", "  ·  " & ThisItem.Remarks)
+                                    AccessibleLabel: ="Payment details"
+                                    Size: =13
+                                    Color: =ClrMuted
+                                    Wrap: =false
+                                    Height: =24
+                                    LayoutMinWidth: =0
+                              - conPayRecActions:
+                                  Control: GroupContainer
+                                  Variant: AutoLayout
+                                  Properties:
+                                    LayoutDirection: =LayoutDirection.Horizontal
+                                    LayoutAlignItems: =LayoutAlignItems.Center
+                                    LayoutGap: =8
+                                    DropShadow: =DropShadow.None
+                                    Visible: =IsAdmin
+                                    Height: =38
+                                    FillPortions: =0
+                                    LayoutMinWidth: =0
+                                    LayoutMinHeight: =0
+                                  Children:
+                                    - btnPayRecEdit:
+                                        Control: ModernButton
+                                        Properties:
+                                          Text: ="Edit"
+                                          AccessibleLabel: ="Edit this payment"
+                                          Appearance: =ButtonAppearance.Outline
+                                          Color: =ClrText
+                                          OnSelect: |-
+                                            =Set(varPayFlatId, ThisItem.FlatID);
+                                            Set(varPayEditId, ThisItem.ID);
+                                            Set(varPayFormMode, "Edit");
+                                            Set(varPayDeleteId, 0);
+                                            Set(varPayLastAction, "");
+                                            Reset(numPayAmount);
+                                            Reset(dpPayDate);
+                                            Reset(ddPayMode);
+                                            Reset(txtPayRemarks)
+                                          Width: =72
+                                          Height: =34
+                                          FillPortions: =0
+                                          LayoutMinWidth: =0
+                                    - btnPayRecDelete:
+                                        Control: ModernButton
+                                        Properties:
+                                          Text: ="Delete"
+                                          AccessibleLabel: ="Delete this payment"
+                                          Appearance: =ButtonAppearance.Outline
+                                          Color: =ClrDue
+                                          OnSelect: |-
+                                            =Set(varPayDeleteId, ThisItem.ID);
+                                            Set(varPayFormMode, "")
+                                          Width: =80
+                                          Height: =34
+                                          FillPortions: =0
+                                          LayoutMinWidth: =0

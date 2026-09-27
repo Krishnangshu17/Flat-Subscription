@@ -1,0 +1,1441 @@
+Screens:
+  OwnersScreen:
+    Properties:
+      Fill: =ClrBg
+      LoadingSpinnerColor: =ClrPrimary
+      OnVisible: |-
+        =Set(varOwnFormMode, "");
+        Set(varOwnDeleteId, 0);
+        Set(varFlatFormMode, "");
+        Set(varFlatDeleteId, 0);
+        Set(varOwnLastAction, "");
+        Set(varFlatLastAction, "");
+        If(IsBlank(varOwnSelectedId), Set(varOwnSelectedId, 0))
+    Children:
+      - conOwnRoot:
+          Control: GroupContainer
+          Variant: AutoLayout
+          Properties:
+            LayoutDirection: =LayoutDirection.Vertical
+            LayoutAlignItems: =LayoutAlignItems.Stretch
+            LayoutOverflowY: =LayoutOverflow.Scroll
+            LayoutGap: =12
+            PaddingBottom: =24
+            Fill: =ClrBg
+            DropShadow: =DropShadow.None
+            RadiusTopLeft: =0
+            RadiusTopRight: =0
+            RadiusBottomLeft: =0
+            RadiusBottomRight: =0
+            X: =0
+            Y: =0
+            Width: =Parent.Width
+            Height: =Parent.Height
+          Children:
+            - conOwnTopBar:
+                Control: GroupContainer
+                Variant: AutoLayout
+                Properties:
+                  LayoutDirection: =LayoutDirection.Vertical
+                  LayoutAlignItems: =LayoutAlignItems.Stretch
+                  LayoutGap: =4
+                  Fill: =ClrPrimary
+                  DropShadow: =DropShadow.None
+                  RadiusTopLeft: =0
+                  RadiusTopRight: =0
+                  RadiusBottomLeft: =0
+                  RadiusBottomRight: =0
+                  PaddingLeft: =16
+                  PaddingRight: =16
+                  PaddingTop: =8
+                  PaddingBottom: =8
+                  Height: =104
+                  FillPortions: =0
+                  LayoutMinWidth: =0
+                  LayoutMinHeight: =0
+                Children:
+                  - conOwnTitleRow:
+                      Control: GroupContainer
+                      Variant: AutoLayout
+                      Properties:
+                        LayoutDirection: =LayoutDirection.Horizontal
+                        LayoutAlignItems: =LayoutAlignItems.Center
+                        LayoutGap: =8
+                        DropShadow: =DropShadow.None
+                        Height: =40
+                        FillPortions: =0
+                        LayoutMinWidth: =0
+                        LayoutMinHeight: =0
+                      Children:
+                        - lblOwnAppTitle:
+                            Control: ModernText
+                            Properties:
+                              Text: ="Flat Subscription Tracker"
+                              AccessibleLabel: ="Flat Subscription Tracker"
+                              Size: =20
+                              FontWeight: =FontWeight.Bold
+                              Color: =ClrOnPrimary
+                              Wrap: =false
+                              Height: =40
+                              FillPortions: =1
+                              LayoutMinWidth: =0
+                        - lblOwnRole:
+                            Control: ModernText
+                            Properties:
+                              Text: =If(IsAdmin, "Admin", "View only")
+                              AccessibleLabel: =If(IsAdmin, "Signed in as admin", "Signed in with view-only access")
+                              Size: =13
+                              FontWeight: =FontWeight.Semibold
+                              Color: =ClrOnPrimary
+                              Align: =Align.Right
+                              Wrap: =false
+                              Height: =40
+                              Width: =96
+                              FillPortions: =0
+                              LayoutMinWidth: =0
+                  - conOwnNavRow:
+                      Control: GroupContainer
+                      Variant: AutoLayout
+                      Properties:
+                        LayoutDirection: =LayoutDirection.Horizontal
+                        LayoutAlignItems: =LayoutAlignItems.Center
+                        LayoutOverflowX: =LayoutOverflow.Scroll
+                        LayoutGap: =6
+                        DropShadow: =DropShadow.None
+                        Height: =44
+                        FillPortions: =0
+                        LayoutMinWidth: =0
+                        LayoutMinHeight: =0
+                      Children:
+                        - btnOwnNavHome:
+                            Control: ModernButton
+                            Properties:
+                              Text: ="Dashboard"
+                              AccessibleLabel: ="Go to Dashboard"
+                              Appearance: =ButtonAppearance.Subtle
+                              BasePaletteColor: =ClrPrimary
+                              Color: =ClrOnPrimary
+                              FontWeight: =FontWeight.Semibold
+                              OnSelect: =Navigate(Screen1, ScreenTransition.None)
+                              Width: =112
+                              Height: =40
+                              FillPortions: =0
+                              LayoutMinWidth: =0
+                        - btnOwnNavOwners:
+                            Control: ModernButton
+                            Properties:
+                              Text: ="Owners & Flats"
+                              AccessibleLabel: ="Go to Owners & Flats"
+                              Appearance: =ButtonAppearance.Primary
+                              BasePaletteColor: =ClrAccent
+                              Color: =ClrOnPrimary
+                              FontWeight: =FontWeight.Bold
+                              OnSelect: =Navigate(OwnersScreen, ScreenTransition.None)
+                              Width: =136
+                              Height: =40
+                              FillPortions: =0
+                              LayoutMinWidth: =0
+                        - btnOwnNavPayments:
+                            Control: ModernButton
+                            Properties:
+                              Text: ="Payments"
+                              AccessibleLabel: ="Go to Payments"
+                              Appearance: =ButtonAppearance.Subtle
+                              BasePaletteColor: =ClrPrimary
+                              Color: =ClrOnPrimary
+                              FontWeight: =FontWeight.Semibold
+                              OnSelect: =Navigate(PaymentsScreen, ScreenTransition.None)
+                              Width: =112
+                              Height: =40
+                              FillPortions: =0
+                              LayoutMinWidth: =0
+                        - btnOwnNavReports:
+                            Control: ModernButton
+                            Properties:
+                              Text: ="Reports"
+                              AccessibleLabel: ="Go to Reports"
+                              Appearance: =ButtonAppearance.Subtle
+                              BasePaletteColor: =ClrPrimary
+                              Color: =ClrOnPrimary
+                              FontWeight: =FontWeight.Semibold
+                              OnSelect: =Navigate(ReportsScreen, ScreenTransition.None)
+                              Width: =112
+                              Height: =40
+                              FillPortions: =0
+                              LayoutMinWidth: =0
+                        - btnOwnNavAudit:
+                            Control: ModernButton
+                            Properties:
+                              Text: ="Audit Log"
+                              AccessibleLabel: ="Go to Audit Log"
+                              Appearance: =ButtonAppearance.Subtle
+                              BasePaletteColor: =ClrPrimary
+                              Color: =ClrOnPrimary
+                              FontWeight: =FontWeight.Semibold
+                              OnSelect: =Navigate(AuditScreen, ScreenTransition.None)
+                              Width: =112
+                              Height: =40
+                              FillPortions: =0
+                              LayoutMinWidth: =0
+                              Visible: =IsAdmin
+            - conOwnHeader:
+                Control: GroupContainer
+                Variant: AutoLayout
+                Properties:
+                  LayoutDirection: =LayoutDirection.Horizontal
+                  LayoutAlignItems: =LayoutAlignItems.Center
+                  LayoutGap: =8
+                  PaddingLeft: =16
+                  PaddingRight: =16
+                  DropShadow: =DropShadow.None
+                  Height: =52
+                  FillPortions: =0
+                  LayoutMinWidth: =0
+                  LayoutMinHeight: =0
+                Children:
+                  - lblOwnTitle:
+                      Control: ModernText
+                      Properties:
+                        Text: ="Owners & Flats"
+                        AccessibleLabel: ="Owners and flats"
+                        Size: =24
+                        FontWeight: =FontWeight.Bold
+                        Color: =ClrText
+                        Wrap: =false
+                        Height: =44
+                        FillPortions: =1
+                        LayoutMinWidth: =0
+                  - btnOwnAdd:
+                      Control: ModernButton
+                      Properties:
+                        Text: ="+ Add owner"
+                        AccessibleLabel: ="Add owner"
+                        Appearance: =ButtonAppearance.Primary
+                        BasePaletteColor: =ClrPrimary
+                        Visible: =IsAdmin
+                        OnSelect: |-
+                          =Set(varOwnEditId, 0);
+                          Set(varOwnFormMode, "Add");
+                          Set(varOwnDeleteId, 0);
+                          Set(varOwnLastAction, "");
+                          Reset(txtOwnName);
+                          Reset(txtOwnPhone);
+                          Reset(txtOwnEmail);
+                          Reset(tglOwnActive)
+                        Width: =132
+                        Height: =44
+                        FillPortions: =0
+                        LayoutMinWidth: =0
+            - conOwnReceipt:
+                Control: GroupContainer
+                Variant: AutoLayout
+                Properties:
+                  LayoutDirection: =LayoutDirection.Horizontal
+                  LayoutAlignItems: =LayoutAlignItems.Center
+                  LayoutGap: =8
+                  PaddingLeft: =16
+                  PaddingRight: =8
+                  Fill: =RGBA(232, 245, 233, 1)
+                  DropShadow: =DropShadow.None
+                  RadiusTopLeft: =8
+                  RadiusTopRight: =8
+                  RadiusBottomLeft: =8
+                  RadiusBottomRight: =8
+                  Visible: =varOwnLastAction <> ""
+                  Height: =76
+                  FillPortions: =0
+                  LayoutMinWidth: =0
+                  LayoutMinHeight: =0
+                Children:
+                  - lblOwnReceipt:
+                      Control: ModernText
+                      Properties:
+                        Text: |-
+                          ="Owner " & varOwnLastAction & " (ID " & varOwnSnap.ID & ")" & Char(10) &
+                          "Name: " & varOwnSnap.Name & "  ·  Phone: " & Coalesce(varOwnSnap.Phone, "-") &
+                          "  ·  Email: " & Coalesce(varOwnSnap.Email, "-") & "  ·  " & If(varOwnSnap.Active, "Active", "Inactive")
+                        AccessibleLabel: ="Owner change confirmation"
+                        Size: =13
+                        Color: =RGBA(27, 94, 32, 1)
+                        Wrap: =true
+                        VerticalAlign: =VerticalAlign.Middle
+                        Height: =68
+                        FillPortions: =1
+                        LayoutMinWidth: =0
+                  - btnOwnReceiptClose:
+                      Control: ModernButton
+                      Properties:
+                        Text: ="Dismiss"
+                        AccessibleLabel: ="Dismiss owner confirmation"
+                        Appearance: =ButtonAppearance.Subtle
+                        Color: =RGBA(27, 94, 32, 1)
+                        OnSelect: =Set(varOwnLastAction, "")
+                        Width: =84
+                        Height: =40
+                        FillPortions: =0
+                        LayoutMinWidth: =0
+            - conOwnForm:
+                Control: GroupContainer
+                Variant: AutoLayout
+                Properties:
+                  LayoutDirection: =LayoutDirection.Vertical
+                  LayoutAlignItems: =LayoutAlignItems.Stretch
+                  LayoutGap: =8
+                  PaddingLeft: =16
+                  PaddingRight: =16
+                  PaddingTop: =16
+                  PaddingBottom: =16
+                  Fill: =ClrCard
+                  DropShadow: =DropShadow.Regular
+                  RadiusTopLeft: =10
+                  RadiusTopRight: =10
+                  RadiusBottomLeft: =10
+                  RadiusBottomRight: =10
+                  Visible: =IsAdmin && varOwnFormMode <> ""
+                  Height: =420
+                  FillPortions: =0
+                  LayoutMinWidth: =0
+                  LayoutMinHeight: =0
+                Children:
+                  - lblOwnFormTitle:
+                      Control: ModernText
+                      Properties:
+                        Text: =If(varOwnFormMode = "Edit", "Edit owner", "Add owner")
+                        AccessibleLabel: =If(varOwnFormMode = "Edit", "Edit owner", "Add owner")
+                        Size: =18
+                        FontWeight: =FontWeight.Bold
+                        Color: =ClrPrimary
+                        Wrap: =false
+                        Height: =32
+                        LayoutMinWidth: =0
+                  - conOwnFieldName:
+                      Control: GroupContainer
+                      Variant: AutoLayout
+                      Properties:
+                        LayoutDirection: =LayoutDirection.Vertical
+                        LayoutAlignItems: =LayoutAlignItems.Stretch
+                        LayoutGap: =4
+                        DropShadow: =DropShadow.None
+                        Height: =66
+                        FillPortions: =0
+                        LayoutMinWidth: =0
+                        LayoutMinHeight: =0
+                      Children:
+                        - lblOwnName:
+                            Control: ModernText
+                            Properties:
+                              Text: ="Owner name *"
+                              AccessibleLabel: ="Owner name, required"
+                              Size: =13
+                              FontWeight: =FontWeight.Semibold
+                              Color: =ClrText
+                              Height: =22
+                              LayoutMinWidth: =0
+                        - txtOwnName:
+                            Control: ModernTextInput
+                            Properties:
+                              Default: =If(varOwnFormMode = "Edit", LookUp(colOwners, ID = varOwnEditId).Title, "")
+                              Placeholder: ="Full name"
+                              AccessibleLabel: ="Owner name"
+                              Appearance: =Appearance.Outline
+                              Required: =true
+                              ValidationState: =If(IsBlank(Trim(Self.Text)), ValidationState.Error, ValidationState.None)
+                              Height: =40
+                              LayoutMinWidth: =0
+                  - conOwnFieldPhone:
+                      Control: GroupContainer
+                      Variant: AutoLayout
+                      Properties:
+                        LayoutDirection: =LayoutDirection.Vertical
+                        LayoutAlignItems: =LayoutAlignItems.Stretch
+                        LayoutGap: =4
+                        DropShadow: =DropShadow.None
+                        Height: =66
+                        FillPortions: =0
+                        LayoutMinWidth: =0
+                        LayoutMinHeight: =0
+                      Children:
+                        - lblOwnPhone:
+                            Control: ModernText
+                            Properties:
+                              Text: ="Phone"
+                              AccessibleLabel: ="Phone"
+                              Size: =13
+                              FontWeight: =FontWeight.Semibold
+                              Color: =ClrText
+                              Height: =22
+                              LayoutMinWidth: =0
+                        - txtOwnPhone:
+                            Control: ModernTextInput
+                            Properties:
+                              Default: =If(varOwnFormMode = "Edit", LookUp(colOwners, ID = varOwnEditId).Phone, "")
+                              Placeholder: ="Mobile number"
+                              AccessibleLabel: ="Phone"
+                              Appearance: =Appearance.Outline
+                              Height: =40
+                              LayoutMinWidth: =0
+                  - conOwnFieldEmail:
+                      Control: GroupContainer
+                      Variant: AutoLayout
+                      Properties:
+                        LayoutDirection: =LayoutDirection.Vertical
+                        LayoutAlignItems: =LayoutAlignItems.Stretch
+                        LayoutGap: =4
+                        DropShadow: =DropShadow.None
+                        Height: =66
+                        FillPortions: =0
+                        LayoutMinWidth: =0
+                        LayoutMinHeight: =0
+                      Children:
+                        - lblOwnEmail:
+                            Control: ModernText
+                            Properties:
+                              Text: ="Email"
+                              AccessibleLabel: ="Email"
+                              Size: =13
+                              FontWeight: =FontWeight.Semibold
+                              Color: =ClrText
+                              Height: =22
+                              LayoutMinWidth: =0
+                        - txtOwnEmail:
+                            Control: ModernTextInput
+                            Properties:
+                              Default: =If(varOwnFormMode = "Edit", LookUp(colOwners, ID = varOwnEditId).Email, "")
+                              Placeholder: ="name@example.com"
+                              AccessibleLabel: ="Email"
+                              Appearance: =Appearance.Outline
+                              Height: =40
+                              LayoutMinWidth: =0
+                  - tglOwnActive:
+                      Control: ModernToggle
+                      Properties:
+                        Label: ="Active owner"
+                        AccessibleLabel: ="Active owner"
+                        Default: =If(varOwnFormMode = "Edit", LookUp(colOwners, ID = varOwnEditId).IsActive, true)
+                        Height: =40
+                        Width: =200
+                        AlignInContainer: =AlignInContainer.Start
+                        LayoutMinWidth: =0
+                  - lblOwnValidation:
+                      Control: ModernText
+                      Properties:
+                        Text: ="Owner name is required."
+                        AccessibleLabel: ="Owner name is required"
+                        Size: =12
+                        Color: =ClrDue
+                        Visible: =IsBlank(Trim(txtOwnName.Text))
+                        Height: =22
+                        LayoutMinWidth: =0
+                  - conOwnFormButtons:
+                      Control: GroupContainer
+                      Variant: AutoLayout
+                      Properties:
+                        LayoutDirection: =LayoutDirection.Horizontal
+                        LayoutAlignItems: =LayoutAlignItems.Center
+                        LayoutGap: =8
+                        DropShadow: =DropShadow.None
+                        Height: =44
+                        FillPortions: =0
+                        LayoutMinWidth: =0
+                        LayoutMinHeight: =0
+                      Children:
+                        - btnOwnSave:
+                            Control: ModernButton
+                            Properties:
+                              Text: =If(varOwnFormMode = "Edit", "Save changes", "Save owner")
+                              AccessibleLabel: ="Save owner"
+                              Appearance: =ButtonAppearance.Primary
+                              BasePaletteColor: =ClrPrimary
+                              DisplayMode: =If(IsBlank(Trim(txtOwnName.Text)), DisplayMode.Disabled, DisplayMode.Edit)
+                              OnSelect: |-
+                                =With(
+                                  {
+                                    mode: varOwnFormMode,
+                                    before: LookUp(colOwners, ID = varOwnEditId),
+                                    changes: {
+                                      Title: Trim(txtOwnName.Text),
+                                      Phone: Trim(txtOwnPhone.Text),
+                                      Email: Trim(txtOwnEmail.Text),
+                                      IsActive: tglOwnActive.Checked
+                                    }
+                                  },
+                                  IfError(
+                                    Set(
+                                      varOwnSaved,
+                                      If(
+                                        mode = "Edit",
+                                        Patch(Owners, LookUp(Owners, ID = varOwnEditId), changes),
+                                        Patch(Owners, Defaults(Owners), changes)
+                                      )
+                                    );
+                                    Patch(
+                                      AuditLog,
+                                      Defaults(AuditLog),
+                                      {
+                                        Title: If(mode = "Edit", "Update", "Create"),
+                                        Entity: "Owner",
+                                        RecordID: varOwnSaved.ID,
+                                        OldValue: If(mode = "Edit", JSON({Name: before.Title, Phone: before.Phone, Email: before.Email, IsActive: before.IsActive}), ""),
+                                        NewValue: JSON({Name: varOwnSaved.Title, Phone: varOwnSaved.Phone, Email: varOwnSaved.Email, IsActive: varOwnSaved.IsActive}),
+                                        ChangedBy: CurrentUserPerson,
+                                        ChangedOn: Now()
+                                      }
+                                    );
+                                    Set(varOwnSnap, {ID: varOwnSaved.ID, Name: varOwnSaved.Title, Phone: varOwnSaved.Phone, Email: varOwnSaved.Email, Active: varOwnSaved.IsActive});
+                                    Set(varOwnLastAction, If(mode = "Edit", "updated", "created"));
+                                    ClearCollect(colOwners, Owners);
+                                    Set(varOwnSelectedId, varOwnSaved.ID);
+                                    Set(varOwnFormMode, ""),
+                                    Notify("Could not save owner. " & FirstError.Message, NotificationType.Error)
+                                  )
+                                )
+                              Width: =140
+                              Height: =40
+                              FillPortions: =0
+                              LayoutMinWidth: =0
+                        - btnOwnCancel:
+                            Control: ModernButton
+                            Properties:
+                              Text: ="Cancel"
+                              AccessibleLabel: ="Cancel owner edit"
+                              Appearance: =ButtonAppearance.Outline
+                              Color: =ClrText
+                              OnSelect: =Set(varOwnFormMode, "")
+                              Width: =96
+                              Height: =40
+                              FillPortions: =0
+                              LayoutMinWidth: =0
+            - conOwnDelete:
+                Control: GroupContainer
+                Variant: AutoLayout
+                Properties:
+                  LayoutDirection: =LayoutDirection.Vertical
+                  LayoutAlignItems: =LayoutAlignItems.Stretch
+                  LayoutGap: =8
+                  PaddingLeft: =16
+                  PaddingRight: =16
+                  PaddingTop: =12
+                  PaddingBottom: =12
+                  Fill: =RGBA(253, 236, 234, 1)
+                  DropShadow: =DropShadow.None
+                  RadiusTopLeft: =10
+                  RadiusTopRight: =10
+                  RadiusBottomLeft: =10
+                  RadiusBottomRight: =10
+                  Visible: =IsAdmin && varOwnDeleteId > 0
+                  Height: =128
+                  FillPortions: =0
+                  LayoutMinWidth: =0
+                  LayoutMinHeight: =0
+                Children:
+                  - lblOwnDeleteMsg:
+                      Control: ModernText
+                      Properties:
+                        Text: |-
+                          =If(
+                            CountRows(Filter(colFlats, OwnerID = varOwnDeleteId)) > 0,
+                            "Owner '" & OwnerName(varOwnDeleteId) & "' still has " & CountRows(Filter(colFlats, OwnerID = varOwnDeleteId)) & " flat(s). Delete or reassign the flats first.",
+                            "Delete owner '" & OwnerName(varOwnDeleteId) & "'? This cannot be undone."
+                          )
+                        AccessibleLabel: ="Delete owner confirmation"
+                        Size: =14
+                        Color: =RGBA(140, 20, 20, 1)
+                        Wrap: =true
+                        Height: =52
+                        LayoutMinWidth: =0
+                  - conOwnDeleteButtons:
+                      Control: GroupContainer
+                      Variant: AutoLayout
+                      Properties:
+                        LayoutDirection: =LayoutDirection.Horizontal
+                        LayoutAlignItems: =LayoutAlignItems.Center
+                        LayoutGap: =8
+                        DropShadow: =DropShadow.None
+                        Height: =44
+                        FillPortions: =0
+                        LayoutMinWidth: =0
+                        LayoutMinHeight: =0
+                      Children:
+                        - btnOwnDeleteConfirm:
+                            Control: ModernButton
+                            Properties:
+                              Text: ="Delete owner"
+                              AccessibleLabel: ="Confirm delete owner"
+                              Appearance: =ButtonAppearance.Primary
+                              BasePaletteColor: =ClrDue
+                              DisplayMode: =If(CountRows(Filter(colFlats, OwnerID = varOwnDeleteId)) > 0, DisplayMode.Disabled, DisplayMode.Edit)
+                              OnSelect: |-
+                                =With(
+                                  {delId: varOwnDeleteId, before: LookUp(colOwners, ID = varOwnDeleteId)},
+                                  If(
+                                    CountRows(Filter(colFlats, OwnerID = before.ID)) = 0,
+                                    IfError(
+                                      Remove(Owners, LookUp(Owners, ID = delId));
+                                      Patch(
+                                        AuditLog,
+                                        Defaults(AuditLog),
+                                        {
+                                          Title: "Delete",
+                                          Entity: "Owner",
+                                          RecordID: before.ID,
+                                          OldValue: JSON({Name: before.Title, Phone: before.Phone, Email: before.Email, IsActive: before.IsActive}),
+                                          NewValue: "",
+                                          ChangedBy: CurrentUserPerson,
+                                          ChangedOn: Now()
+                                        }
+                                      );
+                                      Set(varOwnSnap, {ID: before.ID, Name: before.Title, Phone: before.Phone, Email: before.Email, Active: before.IsActive});
+                                      Set(varOwnLastAction, "deleted");
+                                      If(varOwnSelectedId = before.ID, Set(varOwnSelectedId, 0));
+                                      ClearCollect(colOwners, Owners);
+                                      Set(varOwnDeleteId, 0),
+                                      Notify("Could not delete owner. " & FirstError.Message, NotificationType.Error)
+                                    )
+                                  )
+                                )
+                              Width: =132
+                              Height: =40
+                              FillPortions: =0
+                              LayoutMinWidth: =0
+                        - btnOwnDeleteCancel:
+                            Control: ModernButton
+                            Properties:
+                              Text: ="Cancel"
+                              AccessibleLabel: ="Cancel delete owner"
+                              Appearance: =ButtonAppearance.Outline
+                              Color: =ClrText
+                              OnSelect: =Set(varOwnDeleteId, 0)
+                              Width: =96
+                              Height: =40
+                              FillPortions: =0
+                              LayoutMinWidth: =0
+            - conOwnSearch:
+                Control: GroupContainer
+                Variant: AutoLayout
+                Properties:
+                  LayoutDirection: =LayoutDirection.Vertical
+                  LayoutAlignItems: =LayoutAlignItems.Stretch
+                  LayoutGap: =4
+                  PaddingLeft: =16
+                  PaddingRight: =16
+                  DropShadow: =DropShadow.None
+                  Height: =66
+                  FillPortions: =0
+                  LayoutMinWidth: =0
+                  LayoutMinHeight: =0
+                Children:
+                  - lblOwnSearch:
+                      Control: ModernText
+                      Properties:
+                        Text: ="Search owners (name, phone or email)"
+                        AccessibleLabel: ="Search owners"
+                        Size: =13
+                        FontWeight: =FontWeight.Semibold
+                        Color: =ClrText
+                        Height: =22
+                        LayoutMinWidth: =0
+                  - txtOwnSearch:
+                      Control: ModernTextInput
+                      Properties:
+                        Placeholder: ="Type to filter"
+                        AccessibleLabel: ="Search owners"
+                        Appearance: =Appearance.Outline
+                        Type: =TextInputType.Search
+                        Height: =40
+                        LayoutMinWidth: =0
+            - lblOwnEmpty:
+                Control: ModernText
+                Properties:
+                  Text: =If(CountRows(colOwners) = 0, "No owners yet." & If(IsAdmin, " Use '+ Add owner' to create one.", ""), "No owners match your search.")
+                  AccessibleLabel: ="No owners to show"
+                  Size: =14
+                  Color: =ClrMuted
+                  PaddingLeft: =16
+                  Visible: =CountRows(Filter(colOwners, IsBlank(Trim(txtOwnSearch.Text)) || Trim(txtOwnSearch.Text) in Title || Trim(txtOwnSearch.Text) in Phone || Trim(txtOwnSearch.Text) in Email)) = 0
+                  Height: =32
+                  FillPortions: =0
+                  LayoutMinWidth: =0
+            - conOwnListWrap:
+                Control: GroupContainer
+                Variant: AutoLayout
+                Properties:
+                  LayoutDirection: =LayoutDirection.Vertical
+                  LayoutAlignItems: =LayoutAlignItems.Stretch
+                  PaddingLeft: =10
+                  PaddingRight: =10
+                  DropShadow: =DropShadow.None
+                  Height: =392
+                  FillPortions: =0
+                  LayoutMinWidth: =0
+                  LayoutMinHeight: =0
+                Children:
+                  - galOwnList:
+                      Control: Gallery
+                      Variant: Vertical
+                      Properties:
+                        Items: |-
+                          =SortByColumns(
+                            Filter(
+                              colOwners,
+                              IsBlank(Trim(txtOwnSearch.Text)) ||
+                              Trim(txtOwnSearch.Text) in Title ||
+                              Trim(txtOwnSearch.Text) in Phone ||
+                              Trim(txtOwnSearch.Text) in Email
+                            ),
+                            "Title",
+                            SortOrder.Ascending
+                          )
+                        TemplateSize: =124
+                        TemplatePadding: =6
+                        Selectable: =false
+                        BorderThickness: =0
+                        AccessibleLabel: ="Owners list"
+                        TabIndex: =0
+                        FillPortions: =1
+                        LayoutMinWidth: =0
+                        LayoutMinHeight: =0
+                      Children:
+                        - conOwnRow:
+                            Control: GroupContainer
+                            Variant: AutoLayout
+                            Properties:
+                              LayoutDirection: =LayoutDirection.Vertical
+                              LayoutAlignItems: =LayoutAlignItems.Stretch
+                              LayoutGap: =2
+                              PaddingLeft: =14
+                              PaddingRight: =14
+                              PaddingTop: =10
+                              PaddingBottom: =10
+                              Fill: =If(ThisItem.ID = varOwnSelectedId, RGBA(224, 242, 241, 1), ClrCard)
+                              BorderColor: =ClrAccent
+                              BorderThickness: =If(ThisItem.ID = varOwnSelectedId, 2, 0)
+                              DropShadow: =DropShadow.Light
+                              RadiusTopLeft: =10
+                              RadiusTopRight: =10
+                              RadiusBottomLeft: =10
+                              RadiusBottomRight: =10
+                              X: =0
+                              Y: =0
+                              Width: =Parent.TemplateWidth
+                              Height: =Parent.TemplateHeight
+                            Children:
+                              - lblOwnRowName:
+                                  Control: ModernText
+                                  Properties:
+                                    Text: =ThisItem.Title & If(ThisItem.IsActive, "", "  (inactive)")
+                                    AccessibleLabel: ="Owner " & ThisItem.Title
+                                    Size: =16
+                                    FontWeight: =FontWeight.Bold
+                                    Color: =ClrText
+                                    Wrap: =false
+                                    Height: =26
+                                    LayoutMinWidth: =0
+                              - lblOwnRowDetails:
+                                  Control: ModernText
+                                  Properties:
+                                    Text: |-
+                                      =Coalesce(ThisItem.Phone, "No phone") & "  ·  " & Coalesce(ThisItem.Email, "No email") & "  ·  " &
+                                      CountRows(Filter(colFlats, OwnerID = ThisItem.ID)) & " flat(s), " &
+                                      Money(Sum(Filter(colFlats, OwnerID = ThisItem.ID && IsActive), MonthlyAmount)) & "/month"
+                                    AccessibleLabel: ="Owner details"
+                                    Size: =13
+                                    Color: =ClrMuted
+                                    Wrap: =false
+                                    Height: =24
+                                    LayoutMinWidth: =0
+                              - conOwnRowActions:
+                                  Control: GroupContainer
+                                  Variant: AutoLayout
+                                  Properties:
+                                    LayoutDirection: =LayoutDirection.Horizontal
+                                    LayoutAlignItems: =LayoutAlignItems.Center
+                                    LayoutGap: =8
+                                    PaddingTop: =4
+                                    DropShadow: =DropShadow.None
+                                    Height: =44
+                                    FillPortions: =0
+                                    LayoutMinWidth: =0
+                                    LayoutMinHeight: =0
+                                  Children:
+                                    - btnOwnRowFlats:
+                                        Control: ModernButton
+                                        Properties:
+                                          Text: ="View flats"
+                                          AccessibleLabel: ="View flats of " & ThisItem.Title
+                                          Appearance: =If(ThisItem.ID = varOwnSelectedId, ButtonAppearance.Primary, ButtonAppearance.Outline)
+                                          BasePaletteColor: =ClrPrimary
+                                          Color: =If(ThisItem.ID = varOwnSelectedId, ClrOnPrimary, ClrPrimary)
+                                          OnSelect: |-
+                                            =Set(varOwnSelectedId, ThisItem.ID);
+                                            Set(varFlatFormMode, "");
+                                            Set(varFlatDeleteId, 0)
+                                          Width: =104
+                                          Height: =36
+                                          FillPortions: =0
+                                          LayoutMinWidth: =0
+                                    - btnOwnRowEdit:
+                                        Control: ModernButton
+                                        Properties:
+                                          Text: ="Edit"
+                                          AccessibleLabel: ="Edit owner " & ThisItem.Title
+                                          Appearance: =ButtonAppearance.Outline
+                                          Color: =ClrText
+                                          Visible: =IsAdmin
+                                          OnSelect: |-
+                                            =Set(varOwnEditId, ThisItem.ID);
+                                            Set(varOwnFormMode, "Edit");
+                                            Set(varOwnDeleteId, 0);
+                                            Set(varOwnLastAction, "");
+                                            Reset(txtOwnName);
+                                            Reset(txtOwnPhone);
+                                            Reset(txtOwnEmail);
+                                            Reset(tglOwnActive)
+                                          Width: =72
+                                          Height: =36
+                                          FillPortions: =0
+                                          LayoutMinWidth: =0
+                                    - btnOwnRowDelete:
+                                        Control: ModernButton
+                                        Properties:
+                                          Text: ="Delete"
+                                          AccessibleLabel: ="Delete owner " & ThisItem.Title
+                                          Appearance: =ButtonAppearance.Outline
+                                          Color: =ClrDue
+                                          Visible: =IsAdmin
+                                          OnSelect: |-
+                                            =Set(varOwnDeleteId, ThisItem.ID);
+                                            Set(varOwnFormMode, "")
+                                          Width: =80
+                                          Height: =36
+                                          FillPortions: =0
+                                          LayoutMinWidth: =0
+            - conOwnFlats:
+                Control: GroupContainer
+                Variant: AutoLayout
+                Properties:
+                  LayoutDirection: =LayoutDirection.Vertical
+                  LayoutAlignItems: =LayoutAlignItems.Stretch
+                  LayoutGap: =10
+                  PaddingLeft: =16
+                  PaddingRight: =16
+                  PaddingTop: =14
+                  PaddingBottom: =14
+                  Fill: =ClrCard
+                  DropShadow: =DropShadow.Light
+                  RadiusTopLeft: =10
+                  RadiusTopRight: =10
+                  RadiusBottomLeft: =10
+                  RadiusBottomRight: =10
+                  Visible: =varOwnSelectedId > 0 && !IsBlank(LookUp(colOwners, ID = varOwnSelectedId))
+                  Height: |-
+                    =28 + 48 + 10 + 330 +
+                    If(varFlatLastAction <> "", 86, 0) +
+                    If(IsAdmin && varFlatFormMode <> "", 514, 0) +
+                    If(IsAdmin && varFlatDeleteId > 0, 130, 0)
+                  FillPortions: =0
+                  LayoutMinWidth: =0
+                  LayoutMinHeight: =0
+                Children:
+                  - conOwnFlatsHead:
+                      Control: GroupContainer
+                      Variant: AutoLayout
+                      Properties:
+                        LayoutDirection: =LayoutDirection.Horizontal
+                        LayoutAlignItems: =LayoutAlignItems.Center
+                        LayoutGap: =8
+                        DropShadow: =DropShadow.None
+                        Height: =48
+                        FillPortions: =0
+                        LayoutMinWidth: =0
+                        LayoutMinHeight: =0
+                      Children:
+                        - lblOwnFlatsTitle:
+                            Control: ModernText
+                            Properties:
+                              Text: ="Flats of " & OwnerName(varOwnSelectedId)
+                              AccessibleLabel: ="Flats of " & OwnerName(varOwnSelectedId)
+                              Size: =18
+                              FontWeight: =FontWeight.Bold
+                              Color: =ClrPrimary
+                              Wrap: =false
+                              Height: =40
+                              FillPortions: =1
+                              LayoutMinWidth: =0
+                        - btnFlatAdd:
+                            Control: ModernButton
+                            Properties:
+                              Text: ="+ Add flat"
+                              AccessibleLabel: ="Add flat"
+                              Appearance: =ButtonAppearance.Primary
+                              BasePaletteColor: =ClrPrimary
+                              Visible: =IsAdmin
+                              OnSelect: |-
+                                =Set(varFlatEditId, 0);
+                                Set(varFlatFormMode, "Add");
+                                Set(varFlatDeleteId, 0);
+                                Set(varFlatLastAction, "");
+                                Reset(txtFlatNo);
+                                Reset(ddFlatOwner);
+                                Reset(numFlatAmount);
+                                Reset(dpFlatStart);
+                                Reset(tglFlatActive)
+                              Width: =116
+                              Height: =40
+                              FillPortions: =0
+                              LayoutMinWidth: =0
+                  - conFlatReceipt:
+                      Control: GroupContainer
+                      Variant: AutoLayout
+                      Properties:
+                        LayoutDirection: =LayoutDirection.Horizontal
+                        LayoutAlignItems: =LayoutAlignItems.Center
+                        LayoutGap: =8
+                        PaddingLeft: =12
+                        PaddingRight: =8
+                        Fill: =RGBA(232, 245, 233, 1)
+                        DropShadow: =DropShadow.None
+                        RadiusTopLeft: =8
+                        RadiusTopRight: =8
+                        RadiusBottomLeft: =8
+                        RadiusBottomRight: =8
+                        Visible: =varFlatLastAction <> ""
+                        Height: =76
+                        FillPortions: =0
+                        LayoutMinWidth: =0
+                        LayoutMinHeight: =0
+                      Children:
+                        - lblFlatReceipt:
+                            Control: ModernText
+                            Properties:
+                              Text: |-
+                                ="Flat " & varFlatLastAction & " (ID " & varFlatSnap.ID & ")" & Char(10) &
+                                "Flat: " & varFlatSnap.FlatNo & "  ·  Owner: " & varFlatSnap.Owner &
+                                "  ·  " & Money(varFlatSnap.Amount) & "/month  ·  From: " & If(IsBlank(varFlatSnap.Start), "-", Text(varFlatSnap.Start, "dd mmm yyyy")) &
+                                "  ·  " & If(varFlatSnap.Active, "Active", "Inactive")
+                              AccessibleLabel: ="Flat change confirmation"
+                              Size: =13
+                              Color: =RGBA(27, 94, 32, 1)
+                              Wrap: =true
+                              Height: =68
+                              FillPortions: =1
+                              LayoutMinWidth: =0
+                        - btnFlatReceiptClose:
+                            Control: ModernButton
+                            Properties:
+                              Text: ="Dismiss"
+                              AccessibleLabel: ="Dismiss flat confirmation"
+                              Appearance: =ButtonAppearance.Subtle
+                              Color: =RGBA(27, 94, 32, 1)
+                              OnSelect: =Set(varFlatLastAction, "")
+                              Width: =84
+                              Height: =40
+                              FillPortions: =0
+                              LayoutMinWidth: =0
+                  - conFlatForm:
+                      Control: GroupContainer
+                      Variant: AutoLayout
+                      Properties:
+                        LayoutDirection: =LayoutDirection.Vertical
+                        LayoutAlignItems: =LayoutAlignItems.Stretch
+                        LayoutGap: =8
+                        PaddingLeft: =14
+                        PaddingRight: =14
+                        PaddingTop: =14
+                        PaddingBottom: =14
+                        Fill: =RGBA(240, 247, 247, 1)
+                        BorderColor: =ClrBorder
+                        BorderThickness: =1
+                        DropShadow: =DropShadow.None
+                        RadiusTopLeft: =10
+                        RadiusTopRight: =10
+                        RadiusBottomLeft: =10
+                        RadiusBottomRight: =10
+                        Visible: =IsAdmin && varFlatFormMode <> ""
+                        Height: =504
+                        FillPortions: =0
+                        LayoutMinWidth: =0
+                        LayoutMinHeight: =0
+                      Children:
+                        - lblFlatFormTitle:
+                            Control: ModernText
+                            Properties:
+                              Text: =If(varFlatFormMode = "Edit", "Edit flat", "Add flat")
+                              AccessibleLabel: =If(varFlatFormMode = "Edit", "Edit flat", "Add flat")
+                              Size: =16
+                              FontWeight: =FontWeight.Bold
+                              Color: =ClrPrimary
+                              Height: =30
+                              LayoutMinWidth: =0
+                        - conFlatFieldNo:
+                            Control: GroupContainer
+                            Variant: AutoLayout
+                            Properties:
+                              LayoutDirection: =LayoutDirection.Vertical
+                              LayoutAlignItems: =LayoutAlignItems.Stretch
+                              LayoutGap: =4
+                              DropShadow: =DropShadow.None
+                              Height: =66
+                              FillPortions: =0
+                              LayoutMinWidth: =0
+                              LayoutMinHeight: =0
+                            Children:
+                              - lblFlatNo:
+                                  Control: ModernText
+                                  Properties:
+                                    Text: ="Flat number *"
+                                    AccessibleLabel: ="Flat number, required"
+                                    Size: =13
+                                    FontWeight: =FontWeight.Semibold
+                                    Color: =ClrText
+                                    Height: =22
+                                    LayoutMinWidth: =0
+                              - txtFlatNo:
+                                  Control: ModernTextInput
+                                  Properties:
+                                    Default: =If(varFlatFormMode = "Edit", LookUp(colFlats, ID = varFlatEditId).Title, "")
+                                    Placeholder: ="e.g. A-101"
+                                    AccessibleLabel: ="Flat number"
+                                    Appearance: =Appearance.Outline
+                                    Required: =true
+                                    Height: =40
+                                    LayoutMinWidth: =0
+                        - conFlatFieldOwner:
+                            Control: GroupContainer
+                            Variant: AutoLayout
+                            Properties:
+                              LayoutDirection: =LayoutDirection.Vertical
+                              LayoutAlignItems: =LayoutAlignItems.Stretch
+                              LayoutGap: =4
+                              DropShadow: =DropShadow.None
+                              Height: =66
+                              FillPortions: =0
+                              LayoutMinWidth: =0
+                              LayoutMinHeight: =0
+                            Children:
+                              - lblFlatOwner:
+                                  Control: ModernText
+                                  Properties:
+                                    Text: ="Owner *"
+                                    AccessibleLabel: ="Owner, required"
+                                    Size: =13
+                                    FontWeight: =FontWeight.Semibold
+                                    Color: =ClrText
+                                    Height: =22
+                                    LayoutMinWidth: =0
+                              - ddFlatOwner:
+                                  Control: ModernDropdown
+                                  Properties:
+                                    Items: =SortByColumns(colOwners, "Title", SortOrder.Ascending)
+                                    ItemDisplayText: =ThisItem.Title
+                                    Default: =LookUp(colOwners, ID = If(varFlatFormMode = "Edit", LookUp(colFlats, ID = varFlatEditId).OwnerID, varOwnSelectedId))
+                                    AccessibleLabel: ="Owner"
+                                    Appearance: =Appearance.Outline
+                                    Required: =true
+                                    Height: =40
+                                    LayoutMinWidth: =0
+                        - conFlatFieldAmount:
+                            Control: GroupContainer
+                            Variant: AutoLayout
+                            Properties:
+                              LayoutDirection: =LayoutDirection.Vertical
+                              LayoutAlignItems: =LayoutAlignItems.Stretch
+                              LayoutGap: =4
+                              DropShadow: =DropShadow.None
+                              Height: =66
+                              FillPortions: =0
+                              LayoutMinWidth: =0
+                              LayoutMinHeight: =0
+                            Children:
+                              - lblFlatAmount:
+                                  Control: ModernText
+                                  Properties:
+                                    Text: ="Monthly subscription (₹) *"
+                                    AccessibleLabel: ="Monthly subscription amount, required"
+                                    Size: =13
+                                    FontWeight: =FontWeight.Semibold
+                                    Color: =ClrText
+                                    Height: =22
+                                    LayoutMinWidth: =0
+                              - numFlatAmount:
+                                  Control: ModernNumberInput
+                                  Properties:
+                                    Default: =If(varFlatFormMode = "Edit", LookUp(colFlats, ID = varFlatEditId).MonthlyAmount, 0)
+                                    Min: =0
+                                    Step: =100
+                                    Precision: =DecimalPrecision.'2'
+                                    AccessibleLabel: ="Monthly subscription amount"
+                                    Appearance: =Appearance.Outline
+                                    ValidationState: =If(Coalesce(Self.Value, 0) <= 0, ValidationState.Error, ValidationState.None)
+                                    Height: =40
+                                    LayoutMinWidth: =0
+                        - conFlatFieldStart:
+                            Control: GroupContainer
+                            Variant: AutoLayout
+                            Properties:
+                              LayoutDirection: =LayoutDirection.Vertical
+                              LayoutAlignItems: =LayoutAlignItems.Stretch
+                              LayoutGap: =4
+                              DropShadow: =DropShadow.None
+                              Height: =66
+                              FillPortions: =0
+                              LayoutMinWidth: =0
+                              LayoutMinHeight: =0
+                            Children:
+                              - lblFlatStart:
+                                  Control: ModernText
+                                  Properties:
+                                    Text: ="Subscription start date"
+                                    AccessibleLabel: ="Subscription start date"
+                                    Size: =13
+                                    FontWeight: =FontWeight.Semibold
+                                    Color: =ClrText
+                                    Height: =22
+                                    LayoutMinWidth: =0
+                              - dpFlatStart:
+                                  Control: ModernDatePicker
+                                  Properties:
+                                    DefaultDate: =If(varFlatFormMode = "Edit", LookUp(colFlats, ID = varFlatEditId).StartDate, Date(Year(Today()), 1, 1))
+                                    Format: =DatePickerFormat.Short
+                                    AccessibleLabel: ="Subscription start date"
+                                    Appearance: =Appearance.Outline
+                                    Height: =40
+                                    LayoutMinWidth: =0
+                        - tglFlatActive:
+                            Control: ModernToggle
+                            Properties:
+                              Label: ="Active (billed monthly)"
+                              AccessibleLabel: ="Flat active"
+                              Default: =If(varFlatFormMode = "Edit", LookUp(colFlats, ID = varFlatEditId).IsActive, true)
+                              Height: =40
+                              Width: =240
+                              AlignInContainer: =AlignInContainer.Start
+                              LayoutMinWidth: =0
+                        - lblFlatValidation:
+                            Control: ModernText
+                            Properties:
+                              Text: |-
+                                =If(
+                                  IsBlank(Trim(txtFlatNo.Text)), "Flat number is required.",
+                                  !IsBlank(LookUp(colFlats, Lower(Title) = Lower(Trim(txtFlatNo.Text)) && ID <> varFlatEditId)), "Flat number already exists.",
+                                  IsBlank(ddFlatOwner.Selected), "Select an owner.",
+                                  Coalesce(numFlatAmount.Value, 0) <= 0, "Monthly amount must be more than 0.",
+                                  ""
+                                )
+                              AccessibleLabel: ="Flat validation message"
+                              Size: =12
+                              Color: =ClrDue
+                              Height: =22
+                              LayoutMinWidth: =0
+                        - conFlatFormButtons:
+                            Control: GroupContainer
+                            Variant: AutoLayout
+                            Properties:
+                              LayoutDirection: =LayoutDirection.Horizontal
+                              LayoutAlignItems: =LayoutAlignItems.Center
+                              LayoutGap: =8
+                              DropShadow: =DropShadow.None
+                              Height: =44
+                              FillPortions: =0
+                              LayoutMinWidth: =0
+                              LayoutMinHeight: =0
+                            Children:
+                              - btnFlatSave:
+                                  Control: ModernButton
+                                  Properties:
+                                    Text: =If(varFlatFormMode = "Edit", "Save changes", "Save flat")
+                                    AccessibleLabel: ="Save flat"
+                                    Appearance: =ButtonAppearance.Primary
+                                    BasePaletteColor: =ClrPrimary
+                                    DisplayMode: |-
+                                      =If(
+                                        IsBlank(Trim(txtFlatNo.Text)) ||
+                                        !IsBlank(LookUp(colFlats, Lower(Title) = Lower(Trim(txtFlatNo.Text)) && ID <> varFlatEditId)) ||
+                                        IsBlank(ddFlatOwner.Selected) ||
+                                        Coalesce(numFlatAmount.Value, 0) <= 0,
+                                        DisplayMode.Disabled,
+                                        DisplayMode.Edit
+                                      )
+                                    OnSelect: |-
+                                      =With(
+                                        {
+                                          mode: varFlatFormMode,
+                                          before: LookUp(colFlats, ID = varFlatEditId),
+                                          changes: {
+                                            Title: Trim(txtFlatNo.Text),
+                                            OwnerID: ddFlatOwner.Selected.ID,
+                                            MonthlyAmount: numFlatAmount.Value,
+                                            StartDate: dpFlatStart.SelectedDate,
+                                            IsActive: tglFlatActive.Checked
+                                          }
+                                        },
+                                        IfError(
+                                          Set(
+                                            varFlatSaved,
+                                            If(
+                                              mode = "Edit",
+                                              Patch(Flats, LookUp(Flats, ID = varFlatEditId), changes),
+                                              Patch(Flats, Defaults(Flats), changes)
+                                            )
+                                          );
+                                          Patch(
+                                            AuditLog,
+                                            Defaults(AuditLog),
+                                            {
+                                              Title: If(mode = "Edit", "Update", "Create"),
+                                              Entity: "Flat",
+                                              RecordID: varFlatSaved.ID,
+                                              OldValue: If(
+                                                mode = "Edit",
+                                                JSON({Flat: before.Title, Owner: OwnerName(before.OwnerID), OwnerID: before.OwnerID, MonthlyAmount: before.MonthlyAmount, StartDate: Text(before.StartDate, "yyyy-mm-dd"), IsActive: before.IsActive}),
+                                                ""
+                                              ),
+                                              NewValue: JSON({Flat: varFlatSaved.Title, Owner: OwnerName(varFlatSaved.OwnerID), OwnerID: varFlatSaved.OwnerID, MonthlyAmount: varFlatSaved.MonthlyAmount, StartDate: Text(varFlatSaved.StartDate, "yyyy-mm-dd"), IsActive: varFlatSaved.IsActive}),
+                                              ChangedBy: CurrentUserPerson,
+                                              ChangedOn: Now()
+                                            }
+                                          );
+                                          Set(varFlatSnap, {ID: varFlatSaved.ID, FlatNo: varFlatSaved.Title, Owner: OwnerName(varFlatSaved.OwnerID), Amount: varFlatSaved.MonthlyAmount, Start: varFlatSaved.StartDate, Active: varFlatSaved.IsActive});
+                                          Set(varFlatLastAction, If(mode = "Edit", "updated", "created"));
+                                          ClearCollect(colFlats, Flats);
+                                          Set(varOwnSelectedId, varFlatSaved.OwnerID);
+                                          Set(varFlatFormMode, ""),
+                                          Notify("Could not save flat. " & FirstError.Message, NotificationType.Error)
+                                        )
+                                      )
+                                    Width: =140
+                                    Height: =40
+                                    FillPortions: =0
+                                    LayoutMinWidth: =0
+                              - btnFlatCancel:
+                                  Control: ModernButton
+                                  Properties:
+                                    Text: ="Cancel"
+                                    AccessibleLabel: ="Cancel flat edit"
+                                    Appearance: =ButtonAppearance.Outline
+                                    Color: =ClrText
+                                    OnSelect: =Set(varFlatFormMode, "")
+                                    Width: =96
+                                    Height: =40
+                                    FillPortions: =0
+                                    LayoutMinWidth: =0
+                  - conFlatDelete:
+                      Control: GroupContainer
+                      Variant: AutoLayout
+                      Properties:
+                        LayoutDirection: =LayoutDirection.Vertical
+                        LayoutAlignItems: =LayoutAlignItems.Stretch
+                        LayoutGap: =8
+                        PaddingLeft: =12
+                        PaddingRight: =12
+                        PaddingTop: =12
+                        PaddingBottom: =12
+                        Fill: =RGBA(253, 236, 234, 1)
+                        DropShadow: =DropShadow.None
+                        RadiusTopLeft: =10
+                        RadiusTopRight: =10
+                        RadiusBottomLeft: =10
+                        RadiusBottomRight: =10
+                        Visible: =IsAdmin && varFlatDeleteId > 0
+                        Height: =120
+                        FillPortions: =0
+                        LayoutMinWidth: =0
+                        LayoutMinHeight: =0
+                      Children:
+                        - lblFlatDeleteMsg:
+                            Control: ModernText
+                            Properties:
+                              Text: |-
+                                =If(
+                                  !IsBlank(LookUp(Payments, FlatID = varFlatDeleteId)),
+                                  "Flat '" & LookUp(colFlats, ID = varFlatDeleteId, Title) & "' has payment records. Mark it inactive instead of deleting.",
+                                  "Delete flat '" & LookUp(colFlats, ID = varFlatDeleteId, Title) & "'? This cannot be undone."
+                                )
+                              AccessibleLabel: ="Delete flat confirmation"
+                              Size: =14
+                              Color: =RGBA(140, 20, 20, 1)
+                              Wrap: =true
+                              Height: =44
+                              LayoutMinWidth: =0
+                        - conFlatDeleteButtons:
+                            Control: GroupContainer
+                            Variant: AutoLayout
+                            Properties:
+                              LayoutDirection: =LayoutDirection.Horizontal
+                              LayoutAlignItems: =LayoutAlignItems.Center
+                              LayoutGap: =8
+                              DropShadow: =DropShadow.None
+                              Height: =44
+                              FillPortions: =0
+                              LayoutMinWidth: =0
+                              LayoutMinHeight: =0
+                            Children:
+                              - btnFlatDeleteConfirm:
+                                  Control: ModernButton
+                                  Properties:
+                                    Text: ="Delete flat"
+                                    AccessibleLabel: ="Confirm delete flat"
+                                    Appearance: =ButtonAppearance.Primary
+                                    BasePaletteColor: =ClrDue
+                                    DisplayMode: =If(!IsBlank(LookUp(Payments, FlatID = varFlatDeleteId)), DisplayMode.Disabled, DisplayMode.Edit)
+                                    OnSelect: |-
+                                      =With(
+                                        {delId: varFlatDeleteId, before: LookUp(colFlats, ID = varFlatDeleteId)},
+                                        If(
+                                          IsBlank(LookUp(Payments, FlatID = delId)),
+                                          IfError(
+                                            Remove(Flats, LookUp(Flats, ID = delId));
+                                            Patch(
+                                              AuditLog,
+                                              Defaults(AuditLog),
+                                              {
+                                                Title: "Delete",
+                                                Entity: "Flat",
+                                                RecordID: before.ID,
+                                                OldValue: JSON({Flat: before.Title, Owner: OwnerName(before.OwnerID), OwnerID: before.OwnerID, MonthlyAmount: before.MonthlyAmount, StartDate: Text(before.StartDate, "yyyy-mm-dd"), IsActive: before.IsActive}),
+                                                NewValue: "",
+                                                ChangedBy: CurrentUserPerson,
+                                                ChangedOn: Now()
+                                              }
+                                            );
+                                            Set(varFlatSnap, {ID: before.ID, FlatNo: before.Title, Owner: OwnerName(before.OwnerID), Amount: before.MonthlyAmount, Start: before.StartDate, Active: before.IsActive});
+                                            Set(varFlatLastAction, "deleted");
+                                            ClearCollect(colFlats, Flats);
+                                            Set(varFlatDeleteId, 0),
+                                            Notify("Could not delete flat. " & FirstError.Message, NotificationType.Error)
+                                          )
+                                        )
+                                      )
+                                    Width: =120
+                                    Height: =40
+                                    FillPortions: =0
+                                    LayoutMinWidth: =0
+                              - btnFlatDeleteCancel:
+                                  Control: ModernButton
+                                  Properties:
+                                    Text: ="Cancel"
+                                    AccessibleLabel: ="Cancel delete flat"
+                                    Appearance: =ButtonAppearance.Outline
+                                    Color: =ClrText
+                                    OnSelect: =Set(varFlatDeleteId, 0)
+                                    Width: =96
+                                    Height: =40
+                                    FillPortions: =0
+                                    LayoutMinWidth: =0
+                  - lblFlatEmpty:
+                      Control: ModernText
+                      Properties:
+                        Text: ="No flats for this owner yet."
+                        AccessibleLabel: ="No flats for this owner"
+                        Size: =14
+                        Color: =ClrMuted
+                        Visible: =CountRows(Filter(colFlats, OwnerID = varOwnSelectedId)) = 0
+                        Height: =28
+                        LayoutMinWidth: =0
+                  - galFlatList:
+                      Control: Gallery
+                      Variant: Vertical
+                      Properties:
+                        Items: =SortByColumns(Filter(colFlats, OwnerID = varOwnSelectedId), "Title", SortOrder.Ascending)
+                        TemplateSize: =100
+                        TemplatePadding: =4
+                        Selectable: =false
+                        BorderThickness: =0
+                        AccessibleLabel: ="Flats of selected owner"
+                        TabIndex: =0
+                        Height: =300
+                        FillPortions: =0
+                        LayoutMinWidth: =0
+                        LayoutMinHeight: =0
+                      Children:
+                        - conFlatRow:
+                            Control: GroupContainer
+                            Variant: AutoLayout
+                            Properties:
+                              LayoutDirection: =LayoutDirection.Vertical
+                              LayoutAlignItems: =LayoutAlignItems.Stretch
+                              LayoutGap: =2
+                              PaddingLeft: =12
+                              PaddingRight: =12
+                              PaddingTop: =8
+                              PaddingBottom: =8
+                              Fill: =ClrBg
+                              DropShadow: =DropShadow.None
+                              RadiusTopLeft: =8
+                              RadiusTopRight: =8
+                              RadiusBottomLeft: =8
+                              RadiusBottomRight: =8
+                              X: =0
+                              Y: =0
+                              Width: =Parent.TemplateWidth
+                              Height: =Parent.TemplateHeight
+                            Children:
+                              - lblFlatRowTitle:
+                                  Control: ModernText
+                                  Properties:
+                                    Text: ="Flat " & ThisItem.Title & "  ·  " & Money(ThisItem.MonthlyAmount) & "/month" & If(ThisItem.IsActive, "", "  ·  INACTIVE")
+                                    AccessibleLabel: ="Flat " & ThisItem.Title
+                                    Size: =15
+                                    FontWeight: =FontWeight.Bold
+                                    Color: =If(ThisItem.IsActive, ClrText, ClrMuted)
+                                    Wrap: =false
+                                    Height: =24
+                                    LayoutMinWidth: =0
+                              - lblFlatRowStart:
+                                  Control: ModernText
+                                  Properties:
+                                    Text: ="Billing from " & If(IsBlank(ThisItem.StartDate), "-", Text(ThisItem.StartDate, "dd mmm yyyy"))
+                                    AccessibleLabel: ="Billing start date"
+                                    Size: =12
+                                    Color: =ClrMuted
+                                    Wrap: =false
+                                    Height: =22
+                                    LayoutMinWidth: =0
+                              - conFlatRowActions:
+                                  Control: GroupContainer
+                                  Variant: AutoLayout
+                                  Properties:
+                                    LayoutDirection: =LayoutDirection.Horizontal
+                                    LayoutAlignItems: =LayoutAlignItems.Center
+                                    LayoutGap: =8
+                                    DropShadow: =DropShadow.None
+                                    Visible: =IsAdmin
+                                    Height: =38
+                                    FillPortions: =0
+                                    LayoutMinWidth: =0
+                                    LayoutMinHeight: =0
+                                  Children:
+                                    - btnFlatRowEdit:
+                                        Control: ModernButton
+                                        Properties:
+                                          Text: ="Edit"
+                                          AccessibleLabel: ="Edit flat " & ThisItem.Title
+                                          Appearance: =ButtonAppearance.Outline
+                                          Color: =ClrText
+                                          OnSelect: |-
+                                            =Set(varFlatEditId, ThisItem.ID);
+                                            Set(varFlatFormMode, "Edit");
+                                            Set(varFlatDeleteId, 0);
+                                            Set(varFlatLastAction, "");
+                                            Reset(txtFlatNo);
+                                            Reset(ddFlatOwner);
+                                            Reset(numFlatAmount);
+                                            Reset(dpFlatStart);
+                                            Reset(tglFlatActive)
+                                          Width: =72
+                                          Height: =34
+                                          FillPortions: =0
+                                          LayoutMinWidth: =0
+                                    - btnFlatRowDelete:
+                                        Control: ModernButton
+                                        Properties:
+                                          Text: ="Delete"
+                                          AccessibleLabel: ="Delete flat " & ThisItem.Title
+                                          Appearance: =ButtonAppearance.Outline
+                                          Color: =ClrDue
+                                          OnSelect: |-
+                                            =Set(varFlatDeleteId, ThisItem.ID);
+                                            Set(varFlatFormMode, "")
+                                          Width: =80
+                                          Height: =34
+                                          FillPortions: =0
+                                          LayoutMinWidth: =0

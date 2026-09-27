@@ -1,0 +1,618 @@
+Screens:
+  Screen1:
+    Properties:
+      Fill: =ClrBg
+      LoadingSpinnerColor: =ClrPrimary
+    Children:
+      - conDashRoot:
+          Control: GroupContainer
+          Variant: AutoLayout
+          Properties:
+            LayoutDirection: =LayoutDirection.Vertical
+            LayoutAlignItems: =LayoutAlignItems.Stretch
+            LayoutOverflowY: =LayoutOverflow.Scroll
+            LayoutGap: =16
+            PaddingBottom: =24
+            Fill: =ClrBg
+            DropShadow: =DropShadow.None
+            RadiusTopLeft: =0
+            RadiusTopRight: =0
+            RadiusBottomLeft: =0
+            RadiusBottomRight: =0
+            X: =0
+            Y: =0
+            Width: =Parent.Width
+            Height: =Parent.Height
+          Children:
+            - conDashTopBar:
+                Control: GroupContainer
+                Variant: AutoLayout
+                Properties:
+                  LayoutDirection: =LayoutDirection.Vertical
+                  LayoutAlignItems: =LayoutAlignItems.Stretch
+                  LayoutGap: =4
+                  Fill: =ClrPrimary
+                  DropShadow: =DropShadow.None
+                  RadiusTopLeft: =0
+                  RadiusTopRight: =0
+                  RadiusBottomLeft: =0
+                  RadiusBottomRight: =0
+                  PaddingLeft: =16
+                  PaddingRight: =16
+                  PaddingTop: =8
+                  PaddingBottom: =8
+                  Height: =104
+                  FillPortions: =0
+                  LayoutMinWidth: =0
+                  LayoutMinHeight: =0
+                Children:
+                  - conDashTitleRow:
+                      Control: GroupContainer
+                      Variant: AutoLayout
+                      Properties:
+                        LayoutDirection: =LayoutDirection.Horizontal
+                        LayoutAlignItems: =LayoutAlignItems.Center
+                        LayoutGap: =8
+                        DropShadow: =DropShadow.None
+                        Height: =40
+                        FillPortions: =0
+                        LayoutMinWidth: =0
+                        LayoutMinHeight: =0
+                      Children:
+                        - lblDashAppTitle:
+                            Control: ModernText
+                            Properties:
+                              Text: ="Flat Subscription Tracker"
+                              AccessibleLabel: ="Flat Subscription Tracker"
+                              Size: =20
+                              FontWeight: =FontWeight.Bold
+                              Color: =ClrOnPrimary
+                              Wrap: =false
+                              Height: =40
+                              FillPortions: =1
+                              LayoutMinWidth: =0
+                        - lblDashRole:
+                            Control: ModernText
+                            Properties:
+                              Text: =If(IsAdmin, "Admin", "View only")
+                              AccessibleLabel: =If(IsAdmin, "Signed in as admin", "Signed in with view-only access")
+                              Size: =13
+                              FontWeight: =FontWeight.Semibold
+                              Color: =ClrOnPrimary
+                              Align: =Align.Right
+                              Wrap: =false
+                              Height: =40
+                              Width: =96
+                              FillPortions: =0
+                              LayoutMinWidth: =0
+                  - conDashNavRow:
+                      Control: GroupContainer
+                      Variant: AutoLayout
+                      Properties:
+                        LayoutDirection: =LayoutDirection.Horizontal
+                        LayoutAlignItems: =LayoutAlignItems.Center
+                        LayoutOverflowX: =LayoutOverflow.Scroll
+                        LayoutGap: =6
+                        DropShadow: =DropShadow.None
+                        Height: =44
+                        FillPortions: =0
+                        LayoutMinWidth: =0
+                        LayoutMinHeight: =0
+                      Children:
+                        - btnDashNavHome:
+                            Control: ModernButton
+                            Properties:
+                              Text: ="Dashboard"
+                              AccessibleLabel: ="Go to Dashboard"
+                              Appearance: =ButtonAppearance.Primary
+                              BasePaletteColor: =ClrAccent
+                              Color: =ClrOnPrimary
+                              FontWeight: =FontWeight.Bold
+                              OnSelect: =Navigate(Screen1, ScreenTransition.None)
+                              Width: =112
+                              Height: =40
+                              FillPortions: =0
+                              LayoutMinWidth: =0
+                        - btnDashNavOwners:
+                            Control: ModernButton
+                            Properties:
+                              Text: ="Owners & Flats"
+                              AccessibleLabel: ="Go to Owners & Flats"
+                              Appearance: =ButtonAppearance.Subtle
+                              BasePaletteColor: =ClrPrimary
+                              Color: =ClrOnPrimary
+                              FontWeight: =FontWeight.Semibold
+                              OnSelect: =Navigate(OwnersScreen, ScreenTransition.None)
+                              Width: =136
+                              Height: =40
+                              FillPortions: =0
+                              LayoutMinWidth: =0
+                        - btnDashNavPayments:
+                            Control: ModernButton
+                            Properties:
+                              Text: ="Payments"
+                              AccessibleLabel: ="Go to Payments"
+                              Appearance: =ButtonAppearance.Subtle
+                              BasePaletteColor: =ClrPrimary
+                              Color: =ClrOnPrimary
+                              FontWeight: =FontWeight.Semibold
+                              OnSelect: =Navigate(PaymentsScreen, ScreenTransition.None)
+                              Width: =112
+                              Height: =40
+                              FillPortions: =0
+                              LayoutMinWidth: =0
+                        - btnDashNavReports:
+                            Control: ModernButton
+                            Properties:
+                              Text: ="Reports"
+                              AccessibleLabel: ="Go to Reports"
+                              Appearance: =ButtonAppearance.Subtle
+                              BasePaletteColor: =ClrPrimary
+                              Color: =ClrOnPrimary
+                              FontWeight: =FontWeight.Semibold
+                              OnSelect: =Navigate(ReportsScreen, ScreenTransition.None)
+                              Width: =112
+                              Height: =40
+                              FillPortions: =0
+                              LayoutMinWidth: =0
+                        - btnDashNavAudit:
+                            Control: ModernButton
+                            Properties:
+                              Text: ="Audit Log"
+                              AccessibleLabel: ="Go to Audit Log"
+                              Appearance: =ButtonAppearance.Subtle
+                              BasePaletteColor: =ClrPrimary
+                              Color: =ClrOnPrimary
+                              FontWeight: =FontWeight.Semibold
+                              OnSelect: =Navigate(AuditScreen, ScreenTransition.None)
+                              Width: =112
+                              Height: =40
+                              FillPortions: =0
+                              LayoutMinWidth: =0
+                              Visible: =IsAdmin
+            - conDashYearBar:
+                Control: GroupContainer
+                Variant: AutoLayout
+                Properties:
+                  LayoutDirection: =LayoutDirection.Horizontal
+                  LayoutAlignItems: =LayoutAlignItems.Center
+                  LayoutGap: =8
+                  PaddingLeft: =16
+                  PaddingRight: =16
+                  DropShadow: =DropShadow.None
+                  Height: =52
+                  FillPortions: =0
+                  LayoutMinWidth: =0
+                  LayoutMinHeight: =0
+                Children:
+                  - lblDashTitle:
+                      Control: ModernText
+                      Properties:
+                        Text: ="Dashboard"
+                        AccessibleLabel: ="Dashboard"
+                        Size: =24
+                        FontWeight: =FontWeight.Bold
+                        Color: =ClrText
+                        Wrap: =false
+                        Height: =44
+                        FillPortions: =1
+                        LayoutMinWidth: =0
+                  - btnDashPrevYear:
+                      Control: ModernButton
+                      Properties:
+                        Text: ="‹"
+                        AccessibleLabel: ="Previous year"
+                        Appearance: =ButtonAppearance.Outline
+                        Color: =ClrPrimary
+                        Size: =20
+                        OnSelect: |-
+                          =Set(varYear, varYear - 1);
+                          ClearCollect(colPayments, Filter(Payments, PayYear = varYear))
+                        Width: =44
+                        Height: =44
+                        FillPortions: =0
+                        LayoutMinWidth: =0
+                  - lblDashYear:
+                      Control: ModernText
+                      Properties:
+                        Text: =Text(varYear)
+                        AccessibleLabel: ="Selected year " & varYear
+                        Size: =20
+                        FontWeight: =FontWeight.Bold
+                        Color: =ClrPrimary
+                        Align: =Align.Center
+                        Wrap: =false
+                        Width: =72
+                        Height: =44
+                        FillPortions: =0
+                        LayoutMinWidth: =0
+                  - btnDashNextYear:
+                      Control: ModernButton
+                      Properties:
+                        Text: ="›"
+                        AccessibleLabel: ="Next year"
+                        Appearance: =ButtonAppearance.Outline
+                        Color: =ClrPrimary
+                        Size: =20
+                        OnSelect: |-
+                          =Set(varYear, varYear + 1);
+                          ClearCollect(colPayments, Filter(Payments, PayYear = varYear))
+                        Width: =44
+                        Height: =44
+                        FillPortions: =0
+                        LayoutMinWidth: =0
+            - conDashKpiRow:
+                Control: GroupContainer
+                Variant: AutoLayout
+                Properties:
+                  LayoutDirection: =LayoutDirection.Horizontal
+                  LayoutWrap: =true
+                  LayoutGap: =12
+                  PaddingLeft: =16
+                  PaddingRight: =16
+                  DropShadow: =DropShadow.None
+                  Height: =If(App.Width < 700, 188, 88)
+                  FillPortions: =0
+                  LayoutMinWidth: =0
+                  LayoutMinHeight: =0
+                Children:
+                  - conDashKpiExpected:
+                      Control: GroupContainer
+                      Variant: AutoLayout
+                      Properties:
+                        LayoutDirection: =LayoutDirection.Vertical
+                        LayoutAlignItems: =LayoutAlignItems.Stretch
+                        LayoutGap: =2
+                        PaddingLeft: =12
+                        PaddingRight: =12
+                        PaddingTop: =12
+                        PaddingBottom: =12
+                        Fill: =ClrCard
+                        DropShadow: =DropShadow.Light
+                        RadiusTopLeft: =10
+                        RadiusTopRight: =10
+                        RadiusBottomLeft: =10
+                        RadiusBottomRight: =10
+                        Height: =88
+                        FillPortions: =1
+                        LayoutMinWidth: =150
+                        LayoutMinHeight: =0
+                      Children:
+                        - lblDashKpiExpectedCap:
+                            Control: ModernText
+                            Properties:
+                              Text: ="Expected (to date)"
+                              AccessibleLabel: ="Expected to date"
+                              Size: =13
+                              Color: =ClrMuted
+                              Wrap: =false
+                              Height: =24
+                              LayoutMinWidth: =0
+                        - lblDashKpiExpectedVal:
+                            Control: ModernText
+                            Properties:
+                              Text: =Money(YearExpectedToDate(varYear))
+                              AccessibleLabel: ="Expected to date " & Money(YearExpectedToDate(varYear))
+                              Size: =22
+                              FontWeight: =FontWeight.Bold
+                              Color: =ClrText
+                              Wrap: =false
+                              Height: =36
+                              LayoutMinWidth: =0
+                  - conDashKpiCollected:
+                      Control: GroupContainer
+                      Variant: AutoLayout
+                      Properties:
+                        LayoutDirection: =LayoutDirection.Vertical
+                        LayoutAlignItems: =LayoutAlignItems.Stretch
+                        LayoutGap: =2
+                        PaddingLeft: =12
+                        PaddingRight: =12
+                        PaddingTop: =12
+                        PaddingBottom: =12
+                        Fill: =ClrCard
+                        DropShadow: =DropShadow.Light
+                        RadiusTopLeft: =10
+                        RadiusTopRight: =10
+                        RadiusBottomLeft: =10
+                        RadiusBottomRight: =10
+                        Height: =88
+                        FillPortions: =1
+                        LayoutMinWidth: =150
+                        LayoutMinHeight: =0
+                      Children:
+                        - lblDashKpiCollectedCap:
+                            Control: ModernText
+                            Properties:
+                              Text: ="Collected (year)"
+                              AccessibleLabel: ="Collected this year"
+                              Size: =13
+                              Color: =ClrMuted
+                              Wrap: =false
+                              Height: =24
+                              LayoutMinWidth: =0
+                        - lblDashKpiCollectedVal:
+                            Control: ModernText
+                            Properties:
+                              Text: =Money(YearCollected(varYear))
+                              AccessibleLabel: ="Collected this year " & Money(YearCollected(varYear))
+                              Size: =22
+                              FontWeight: =FontWeight.Bold
+                              Color: =ClrPaid
+                              Wrap: =false
+                              Height: =36
+                              LayoutMinWidth: =0
+                  - conDashKpiDue:
+                      Control: GroupContainer
+                      Variant: AutoLayout
+                      Properties:
+                        LayoutDirection: =LayoutDirection.Vertical
+                        LayoutAlignItems: =LayoutAlignItems.Stretch
+                        LayoutGap: =2
+                        PaddingLeft: =12
+                        PaddingRight: =12
+                        PaddingTop: =12
+                        PaddingBottom: =12
+                        Fill: =ClrCard
+                        DropShadow: =DropShadow.Light
+                        RadiusTopLeft: =10
+                        RadiusTopRight: =10
+                        RadiusBottomLeft: =10
+                        RadiusBottomRight: =10
+                        Height: =88
+                        FillPortions: =1
+                        LayoutMinWidth: =150
+                        LayoutMinHeight: =0
+                      Children:
+                        - lblDashKpiDueCap:
+                            Control: ModernText
+                            Properties:
+                              Text: ="Outstanding (to date)"
+                              AccessibleLabel: ="Outstanding to date"
+                              Size: =13
+                              Color: =ClrMuted
+                              Wrap: =false
+                              Height: =24
+                              LayoutMinWidth: =0
+                        - lblDashKpiDueVal:
+                            Control: ModernText
+                            Properties:
+                              Text: =Money(YearDueToDate(varYear))
+                              AccessibleLabel: ="Outstanding to date " & Money(YearDueToDate(varYear))
+                              Size: =22
+                              FontWeight: =FontWeight.Bold
+                              Color: =If(YearDueToDate(varYear) > 0, ClrDue, ClrPaid)
+                              Wrap: =false
+                              Height: =36
+                              LayoutMinWidth: =0
+                  - conDashKpiFlats:
+                      Control: GroupContainer
+                      Variant: AutoLayout
+                      Properties:
+                        LayoutDirection: =LayoutDirection.Vertical
+                        LayoutAlignItems: =LayoutAlignItems.Stretch
+                        LayoutGap: =2
+                        PaddingLeft: =12
+                        PaddingRight: =12
+                        PaddingTop: =12
+                        PaddingBottom: =12
+                        Fill: =ClrCard
+                        DropShadow: =DropShadow.Light
+                        RadiusTopLeft: =10
+                        RadiusTopRight: =10
+                        RadiusBottomLeft: =10
+                        RadiusBottomRight: =10
+                        Height: =88
+                        FillPortions: =1
+                        LayoutMinWidth: =150
+                        LayoutMinHeight: =0
+                      Children:
+                        - lblDashKpiFlatsCap:
+                            Control: ModernText
+                            Properties:
+                              Text: ="Active flats · Owners"
+                              AccessibleLabel: ="Active flats and owners"
+                              Size: =13
+                              Color: =ClrMuted
+                              Wrap: =false
+                              Height: =24
+                              LayoutMinWidth: =0
+                        - lblDashKpiFlatsVal:
+                            Control: ModernText
+                            Properties:
+                              Text: =CountRows(Filter(colFlats, IsActive)) & " · " & CountRows(colOwners)
+                              AccessibleLabel: =CountRows(Filter(colFlats, IsActive)) & " active flats, " & CountRows(colOwners) & " owners"
+                              Size: =22
+                              FontWeight: =FontWeight.Bold
+                              Color: =ClrPrimary
+                              Wrap: =false
+                              Height: =36
+                              LayoutMinWidth: =0
+            - lblDashMonthsTitle:
+                Control: ModernText
+                Properties:
+                  Text: ="Month-wise collection and due · " & varYear
+                  AccessibleLabel: ="Month-wise collection and due for " & varYear
+                  Size: =18
+                  FontWeight: =FontWeight.Semibold
+                  Color: =ClrText
+                  PaddingLeft: =16
+                  Wrap: =false
+                  Height: =32
+                  FillPortions: =0
+                  LayoutMinWidth: =0
+            - conDashTiles:
+                Control: GroupContainer
+                Variant: AutoLayout
+                Properties:
+                  LayoutDirection: =LayoutDirection.Vertical
+                  LayoutAlignItems: =LayoutAlignItems.Stretch
+                  PaddingLeft: =10
+                  PaddingRight: =10
+                  DropShadow: =DropShadow.None
+                  Height: =RoundUp(12 / If(App.Width >= 1100, 4, App.Width >= 760, 3, 2), 0) * 212 + 12
+                  FillPortions: =0
+                  LayoutMinWidth: =0
+                  LayoutMinHeight: =0
+                Children:
+                  - galDashMonths:
+                      Control: Gallery
+                      Variant: Vertical
+                      Properties:
+                        Items: |-
+                          =ForAll(
+                            Sequence(12),
+                            With(
+                              {
+                                mn: Value,
+                                e: MonthExpected(varYear, Value),
+                                c: MonthCollected(varYear, Value)
+                              },
+                              {
+                                MonthNo: mn,
+                                Expected: e,
+                                Collected: c,
+                                Due: Max(0, e - c),
+                                Status: MonthStatus(e, c, varYear, mn)
+                              }
+                            )
+                          )
+                        WrapCount: =If(App.Width >= 1100, 4, App.Width >= 760, 3, 2)
+                        TemplateSize: =206
+                        TemplatePadding: =6
+                        ShowScrollbar: =false
+                        Selectable: =false
+                        DelayItemLoading: =false
+                        BorderThickness: =0
+                        AccessibleLabel: ="Monthly collection tiles"
+                        TabIndex: =0
+                        FillPortions: =1
+                        LayoutMinWidth: =0
+                        LayoutMinHeight: =0
+                      Children:
+                        - conDashTile:
+                            Control: GroupContainer
+                            Variant: AutoLayout
+                            Properties:
+                              LayoutDirection: =LayoutDirection.Vertical
+                              LayoutAlignItems: =LayoutAlignItems.Stretch
+                              LayoutGap: =4
+                              PaddingLeft: =12
+                              PaddingRight: =12
+                              PaddingTop: =12
+                              PaddingBottom: =12
+                              Fill: =ClrCard
+                              BorderColor: =StatusColor(ThisItem.Status)
+                              BorderThickness: =If(ThisItem.MonthNo = Month(Today()) && varYear = Year(Today()), 2, 0)
+                              DropShadow: =DropShadow.Light
+                              RadiusTopLeft: =10
+                              RadiusTopRight: =10
+                              RadiusBottomLeft: =10
+                              RadiusBottomRight: =10
+                              X: =0
+                              Y: =0
+                              Width: =Parent.TemplateWidth
+                              Height: =Parent.TemplateHeight
+                            Children:
+                              - conDashTileHead:
+                                  Control: GroupContainer
+                                  Variant: AutoLayout
+                                  Properties:
+                                    LayoutDirection: =LayoutDirection.Horizontal
+                                    LayoutAlignItems: =LayoutAlignItems.Center
+                                    LayoutGap: =4
+                                    DropShadow: =DropShadow.None
+                                    Height: =32
+                                    FillPortions: =0
+                                    LayoutMinWidth: =0
+                                    LayoutMinHeight: =0
+                                  Children:
+                                    - lblDashTileMonth:
+                                        Control: ModernText
+                                        Properties:
+                                          Text: =MonthShort(ThisItem.MonthNo)
+                                          AccessibleLabel: =MonthLabel(ThisItem.MonthNo) & " " & varYear
+                                          Size: =18
+                                          FontWeight: =FontWeight.Bold
+                                          Color: =ClrText
+                                          Wrap: =false
+                                          Height: =32
+                                          FillPortions: =1
+                                          LayoutMinWidth: =0
+                                    - bdgDashTileStatus:
+                                        Control: Badge
+                                        Properties:
+                                          Content: =ThisItem.Status
+                                          AccessibleLabel: ="Status " & ThisItem.Status
+                                          Appearance: ='BadgeCanvas.Appearance'.Tint
+                                          Shape: ='BadgeCanvas.Shape'.Rounded
+                                          ThemeColor: |-
+                                            =Switch(
+                                              ThisItem.Status,
+                                              "Paid", 'BadgeCanvas.ThemeColor'.Success,
+                                              "Partial", 'BadgeCanvas.ThemeColor'.Warning,
+                                              "Due", 'BadgeCanvas.ThemeColor'.Danger,
+                                              'BadgeCanvas.ThemeColor'.Subtle
+                                            )
+                                          Width: =84
+                                          Height: =24
+                                          FillPortions: =0
+                                          LayoutMinWidth: =0
+                              - lblDashTileCollected:
+                                  Control: ModernText
+                                  Properties:
+                                    Text: ="Collected " & Money(ThisItem.Collected)
+                                    AccessibleLabel: ="Collected " & Money(ThisItem.Collected)
+                                    Size: =14
+                                    FontWeight: =FontWeight.Semibold
+                                    Color: =ClrPaid
+                                    Wrap: =false
+                                    Height: =26
+                                    LayoutMinWidth: =0
+                              - lblDashTileDue:
+                                  Control: ModernText
+                                  Properties:
+                                    Text: ="Due " & Money(ThisItem.Due)
+                                    AccessibleLabel: ="Due " & Money(ThisItem.Due)
+                                    Size: =14
+                                    FontWeight: =FontWeight.Semibold
+                                    Color: =If(ThisItem.Due > 0, ClrDue, ClrMuted)
+                                    Wrap: =false
+                                    Height: =26
+                                    LayoutMinWidth: =0
+                              - prgDashTile:
+                                  Control: ModernProgressBar
+                                  Properties:
+                                    Value: =If(ThisItem.Expected > 0, Min(100, RoundDown(ThisItem.Collected / ThisItem.Expected * 100, 0)), 0)
+                                    Max: =100
+                                    ProgressColor: =If(ThisItem.Expected > 0 && ThisItem.Collected >= ThisItem.Expected, ProgressColor.Success, ProgressColor.Warning)
+                                    AccessibleLabel: ="Collection progress"
+                                    Height: =12
+                                    LayoutMinWidth: =0
+                                    LayoutMinHeight: =0
+                              - lblDashTileExpected:
+                                  Control: ModernText
+                                  Properties:
+                                    Text: |-
+                                      ="of " & Money(ThisItem.Expected) & " · " &
+                                      If(ThisItem.Expected > 0, RoundDown(ThisItem.Collected / ThisItem.Expected * 100, 0), 0) & "%"
+                                    AccessibleLabel: ="Expected " & Money(ThisItem.Expected)
+                                    Size: =12
+                                    Color: =ClrMuted
+                                    Wrap: =false
+                                    Height: =22
+                                    LayoutMinWidth: =0
+                              - btnDashTileOpen:
+                                  Control: ModernButton
+                                  Properties:
+                                    Text: ="View payments"
+                                    AccessibleLabel: ="View payments for " & MonthLabel(ThisItem.MonthNo) & " " & varYear
+                                    Appearance: =ButtonAppearance.Outline
+                                    Color: =ClrPrimary
+                                    OnSelect: |-
+                                      =Set(varMonth, ThisItem.MonthNo);
+                                      Navigate(PaymentsScreen, ScreenTransition.None)
+                                    Width: =Parent.Width - 24
+                                    Height: =36
+                                    AlignInContainer: =AlignInContainer.Stretch
+                                    LayoutMinWidth: =0

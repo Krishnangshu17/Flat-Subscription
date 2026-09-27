@@ -1,0 +1,85 @@
+App:
+  Properties:
+    Theme: =PowerAppsTheme
+    StartScreen: =Screen1
+    OnStart: |-
+      =Set(varYear, Year(Today()));
+      Set(varMonth, Month(Today()));
+      ClearCollect(colOwners, Owners);
+      ClearCollect(colFlats, Flats);
+      ClearCollect(colPayments, Filter(Payments, PayYear = varYear))
+    Formulas: |-
+      =// Palette
+      ClrPrimary = RGBA(15, 98, 106, 1);
+      ClrPrimaryDark = RGBA(9, 64, 70, 1);
+      ClrAccent = RGBA(0, 150, 136, 1);
+      ClrBg = RGBA(245, 247, 248, 1);
+      ClrCard = RGBA(255, 255, 255, 1);
+      ClrText = RGBA(33, 33, 33, 1);
+      ClrMuted = RGBA(84, 94, 100, 1);
+      ClrBorder = RGBA(222, 228, 231, 1);
+      ClrOnPrimary = RGBA(255, 255, 255, 1);
+      ClrPaid = RGBA(46, 125, 50, 1);
+      ClrPartial = RGBA(191, 87, 0, 1);
+      ClrDue = RGBA(198, 40, 40, 1);
+      ClrFuture = RGBA(110, 110, 110, 1);
+
+      // Role
+      IsAdmin = !IsBlank(LookUp(AppAdmins, Title = User().Email));
+
+      // SharePoint person value for audit rows
+      CurrentUserPerson = {
+        '@odata.type': "#Microsoft.Azure.Connectors.SharePoint.SPListExpandedUser",
+        Claims: "i:0#.f|membership|" & Lower(User().Email),
+        Department: "",
+        DisplayName: User().FullName,
+        Email: User().Email,
+        JobTitle: "",
+        Picture: ""
+      };
+
+      // Helpers
+      Money(n: Number): Text = "₹" & Text(Coalesce(n, 0), "#,##0");
+      MonthLabel(m: Number): Text = Text(Date(2000, m, 1), "mmmm");
+      MonthShort(m: Number): Text = Text(Date(2000, m, 1), "mmm");
+      MonthEnd(y: Number, m: Number): Date = DateAdd(Date(y, m, 1), 1, TimeUnit.Months);
+      MonthExpected(y: Number, m: Number): Number =
+        Sum(
+          Filter(colFlats, IsActive && (IsBlank(StartDate) || StartDate < MonthEnd(y, m))),
+          MonthlyAmount
+        );
+      MonthCollected(y: Number, m: Number): Number =
+        Sum(Filter(colPayments, PayYear = y && PayMonth = m), AmountPaid);
+      FlatPaid(flatId: Number, y: Number, m: Number): Number =
+        Sum(Filter(colPayments, FlatID = flatId && PayYear = y && PayMonth = m), AmountPaid);
+      OwnerName(ownerId: Number): Text = Coalesce(LookUp(colOwners, ID = ownerId, Title), "(unassigned)");
+      MonthStatus(expected: Number, collected: Number, y: Number, m: Number): Text =
+        If(
+          Date(y, m, 1) > Today(), "Upcoming",
+          expected <= 0, "No dues",
+          collected >= expected, "Paid",
+          collected > 0, "Partial",
+          "Due"
+        );
+      MonthsElapsed(y: Number): Number =
+        If(y < Year(Today()), 12, y = Year(Today()), Month(Today()), 0);
+      YearCollected(y: Number): Number = Sum(Filter(colPayments, PayYear = y), AmountPaid);
+      YearExpectedToDate(y: Number): Number =
+        Sum(ForAll(Sequence(Max(1, MonthsElapsed(y))), {v: If(Value <= MonthsElapsed(y), MonthExpected(y, Value), 0)}), v);
+      YearDueToDate(y: Number): Number =
+        Sum(
+          ForAll(
+            Sequence(Max(1, MonthsElapsed(y))),
+            {v: If(Value <= MonthsElapsed(y), Max(0, MonthExpected(y, Value) - MonthCollected(y, Value)), 0)}
+          ),
+          v
+        );
+      OwnerExpected(ownerId: Number, y: Number, m: Number): Number =
+        Sum(
+          Filter(colFlats, OwnerID = ownerId && IsActive && (IsBlank(StartDate) || StartDate < MonthEnd(y, m))),
+          MonthlyAmount
+        );
+      OwnerPaid(ownerId: Number, y: Number, m: Number): Number =
+        Sum(Filter(colPayments, OwnerID = ownerId && PayYear = y && PayMonth = m), AmountPaid);
+      StatusColor(s: Text): Color =
+        Switch(s, "Paid", ClrPaid, "Partial", ClrPartial, "Due", ClrDue, ClrFuture);
